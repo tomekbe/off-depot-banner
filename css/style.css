@@ -1,0 +1,96 @@
+#add-wrapper {
+	position: relative;
+	overflow: hidden;
+	width:756px;
+	height:150px;
+	
+
+}
+
+#add {
+position: absolute;
+z-index: 1;
+left:0px;
+top:0px;
+height: 150px;
+width:756px;
+}
+
+#sheet, #sheet_2, #sheet_3, #sheet_4, #sheet_5{
+
+display:block;
+z-index: 2;
+position:absolute;
+left:0px;
+top:0px;
+height:150px;
+width:756px; 
+
+
+}
+
+#sheet_cont_1 , #sheet_cont_2, #sheet_cont_3, #sheet_cont_4, #sheet_cont_5 {
+display:block;
+z-index:3;
+position:absolute;
+left:0px;
+top:0px;
+height:150px;
+width:756px; 
+
+}
+
+#sheet_2 {
+
+	z-index: 4;
+}
+
+#sheet_cont_2 {
+	z-index: 5;
+}
+
+#sheet_3 {
+	z-index: 6;
+
+}
+
+#sheet_cont_3  {
+
+	z-index: 7;
+}
+
+
+#sheet_4 {
+	z-index: 8;
+}
+
+#sheet_cont_4 {
+
+	z-index: 9;
+}
+
+#sheet_5 {
+	z-index: 10;
+}
+
+#sheet_cont_5 {
+	z-index: 11;
+}
+
+
+
+
+
+
+/* utmost top  on the banner */
+
+#button-cta {
+
+position: absolute;
+display: block;
+width:151px;
+height:32px;
+top:35px;
+left:890px;
+z-index: 100;
+}

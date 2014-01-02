@@ -124,7 +124,11 @@ window.onload = function ()
          
     advert.sheet.canvas.width = advert.sheet.ADD_WIDTH;
     advert.sheet.canvas.height = advert.sheet.ADD_HEIGHT;
+
     advert.sheet.index =0;
+    advert.sheet.frame =0;
+    advert.sheet.xpos = advert.sheet.ypos = 0;
+    advert.sheet.numFrames = 20;
 
     // preload all the images;
 
@@ -132,9 +136,9 @@ window.onload = function ()
 
 	    advert.sheet.loaded = 0;
         advert.sheet.ready = false;
-	    advert.sheet.totalToLoad = 40;
+	    advert.sheet.totalToLoad = 2;
 	    advert.sheet.path = 'img/sheet/';
-	    advert.sheet.images = ['anim_sheet_paper_28.png','anim_sheet_paper_29.png','anim_sheet_paper_30.png','anim_sheet_paper_31.png','anim_sheet_paper_32.png','anim_sheet_paper_33.png','anim_sheet_paper_34.png','anim_sheet_paper_35.png','anim_sheet_paper_36.png','anim_sheet_paper_37.png','anim_sheet_paper_38.png','anim_sheet_paper_39.png','anim_sheet_paper_40.png','anim_sheet_paper_41.png','anim_sheet_paper_42.png','anim_sheet_paper_43.png','anim_sheet_paper_44.png','anim_sheet_paper_45.png','anim_sheet_paper_46.png','anim_sheet_paper_47.png','anim_sheet_paper_48.png','anim_sheet_paper_49.png','anim_sheet_paper_50.png','anim_sheet_paper_51.png','anim_sheet_paper_52.png','anim_sheet_paper_53.png','anim_sheet_paper_54.png','anim_sheet_paper_55.png','anim_sheet_paper_56.png','anim_sheet_paper_57.png','anim_sheet_paper_58.png','anim_sheet_paper_59.png','anim_sheet_paper_60.png','anim_sheet_paper_61.png','anim_sheet_paper_62.png','anim_sheet_paper_63.png','anim_sheet_paper_64.png','anim_sheet_paper_65.png','anim_sheet_paper_66.png','anim_sheet_paper_67.png'];
+	    advert.sheet.images = ['white_sheet_A.png','white_sheet_B.png'];
 	    advert.sheet.resources = new Array();
 
 
@@ -180,18 +184,38 @@ window.onload = function ()
 
     		advert.sheet.request  = requestAnimationFrame(advert.sheet.drawFrame, advert.sheet.canvas);
     		advert.sheet.c.clearRect(0,0, advert.sheet.ADD_WIDTH, advert.sheet.ADD_HEIGHT);
-    		advert.sheet.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
-    		advert.sheet.index++;
+    		advert.sheet.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
+    		//advert.sheet.index++;
+
+            //>     Sprite Sheet iteration
+                    console.log( advert.sheet.index, advert.sheet.frame)
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet.frame >= advert.sheet.numFrames) {
+                        advert.sheet.xpos =0;
+                        advert.sheet.ypos =0;
+                        advert.sheet.frame=0;  
+                        advert.sheet.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
+                       advert.sheet.xpos =0;
+                       advert.sheet.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
 
     		    if(advert.sheet.index>=advert.sheet.totalToLoad) {
-                  advert.sheet.index = 0;
-                  cancelAnimationFrame(advert.sheet.request);
+                   advert.sheet.index = 0;
+                   cancelAnimationFrame(advert.sheet.request);
                 }
 
     		
     		//cancelAnimationFrame(advert.sheet.request);
     	}, 1000/frameRate)
-    	//only once
+    
     	
 
 
@@ -299,7 +323,7 @@ window.onload = function ()
          
     advert.sheet_2.canvas.width = advert.sheet_2.ADD_WIDTH;
     advert.sheet_2.canvas.height = advert.sheet_2.ADD_HEIGHT;
-    advert.sheet_2.index =0;
+
 
     advert.sheet_2.drawFrame = function () {
 
@@ -309,9 +333,29 @@ window.onload = function ()
 
             advert.sheet_2.request  = requestAnimationFrame(advert.sheet_2.drawFrame, advert.sheet_2.canvas);
             advert.sheet_2.c.clearRect(0,0, advert.sheet_2.ADD_WIDTH, advert.sheet_2.ADD_HEIGHT);
-            advert.sheet_2.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
+          //  advert.sheet_2.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
+            advert.sheet_2.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
             //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-            advert.sheet.index++;
+          
+                   //>     Sprite Sheet iteration
+                    console.log( advert.sheet.index, advert.sheet.frame)
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet.frame >= advert.sheet.numFrames) {
+                        advert.sheet.xpos =0;
+                        advert.sheet.ypos =0;
+                        advert.sheet.frame=0;  
+                        advert.sheet.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
+                       advert.sheet.xpos =0;
+                       advert.sheet.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
 
                 if(advert.sheet.index>=advert.sheet.totalToLoad) {
                   advert.sheet.index = 0;
@@ -437,9 +481,31 @@ window.onload = function ()
 
             advert.sheet_3.request  = requestAnimationFrame(advert.sheet_3.drawFrame, advert.sheet_3.canvas);
             advert.sheet_3.c.clearRect(0,0, advert.sheet_3.ADD_WIDTH, advert.sheet_3.ADD_HEIGHT);
-            advert.sheet_3.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
+            //advert.sheet_3.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
             //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-            advert.sheet.index++;
+            
+             advert.sheet_3.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
+            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
+          
+                   //>     Sprite Sheet iteration
+                    console.log( advert.sheet.index, advert.sheet.frame)
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet.frame >= advert.sheet.numFrames) {
+                        advert.sheet.xpos =0;
+                        advert.sheet.ypos =0;
+                        advert.sheet.frame=0;  
+                        advert.sheet.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
+                       advert.sheet.xpos =0;
+                       advert.sheet.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
 
                 if(advert.sheet.index>=advert.sheet.totalToLoad) {
                   advert.sheet.index = 0;
@@ -562,9 +628,33 @@ window.onload = function ()
 
             advert.sheet_4.request  = requestAnimationFrame(advert.sheet_4.drawFrame, advert.sheet_4.canvas);
             advert.sheet_4.c.clearRect(0,0, advert.sheet_4.ADD_WIDTH, advert.sheet_4.ADD_HEIGHT);
-            advert.sheet_4.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
+            //advert.sheet_4.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
             //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-            advert.sheet.index++;
+            //advert.sheet.index++;
+
+             advert.sheet_4.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
+            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
+          
+                   //>     Sprite Sheet iteration
+                    console.log( advert.sheet.index, advert.sheet.frame)
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet.frame >= advert.sheet.numFrames) {
+                        advert.sheet.xpos =0;
+                        advert.sheet.ypos =0;
+                        advert.sheet.frame=0;  
+                        advert.sheet.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
+                       advert.sheet.xpos =0;
+                       advert.sheet.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
+
 
                 if(advert.sheet.index>=advert.sheet.totalToLoad) {
                   advert.sheet.index = 0;
@@ -691,9 +781,32 @@ window.onload = function ()
 
             advert.sheet_5.request  = requestAnimationFrame(advert.sheet_5.drawFrame, advert.sheet_5.canvas);
             advert.sheet_5.c.clearRect(0,0, advert.sheet_5.ADD_WIDTH, advert.sheet_5.ADD_HEIGHT);
-            advert.sheet_5.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
+            //advert.sheet_5.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
             //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-            advert.sheet.index++;
+            //advert.sheet.index++;
+
+             advert.sheet_5.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
+            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
+          
+                   //>     Sprite Sheet iteration
+                    console.log( advert.sheet.index, advert.sheet.frame)
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet.frame >= advert.sheet.numFrames) {
+                        advert.sheet.xpos =0;
+                        advert.sheet.ypos =0;
+                        advert.sheet.frame=0;  
+                        advert.sheet.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
+                       advert.sheet.xpos =0;
+                       advert.sheet.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
 
                 if(advert.sheet.index>=advert.sheet.totalToLoad) {
                   advert.sheet.index = 0;

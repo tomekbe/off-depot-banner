@@ -1,4 +1,7 @@
-/* create a namespace for add */
+/* tomasz bartkowiak - saatchi masius */
+//
+
+// -- create a namespace for add -- /
 var advert = {};
 // base is a background which never changes
 advert.base ={};
@@ -907,7 +910,8 @@ advert.checkAssetsLoaded = function () {
         }
 
     if(flag==true) {
-   console.log("+++++playback");
+        // this is only true 
+        console.log("+++++playback");
         
         advert.playBanner();
     } else if (flag==false) {
@@ -929,22 +933,23 @@ advert.playBanner = function () {
 
 }
 
-// ******** init
+// ******** init ***//
 
 advert.init = function () {
-advert.buttons.preload();
-advert.sheet_cont_5.preload();
-advert.sheet_cont_4.preload();
-advert.sheet_cont_3.preload();
-advert.sheet_cont_2.preload();
-advert.sheet_cont_1.preload();
-  //preload bg image;
-advert.base.preload();
-//preload white sheet animation;
-advert.sheet.preload();
+    advert.buttons.preload();
+    advert.sheet_cont_5.preload();
+    advert.sheet_cont_4.preload();
+    advert.sheet_cont_3.preload();
+    advert.sheet_cont_2.preload();
+    advert.sheet_cont_1.preload();
+      //preload bg image;
+    advert.base.preload();
+    //preload white sheet animation;
+    advert.sheet.preload();
 
-    //preload the content
+        //preload the content
 }
+
 
 
 

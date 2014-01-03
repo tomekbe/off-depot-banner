@@ -188,7 +188,7 @@ window.onload = function ()
     		//advert.sheet.index++;
 
             //>     Sprite Sheet iteration
-                    console.log( advert.sheet.index, advert.sheet.frame)
+                    //console.log( advert.sheet.index, advert.sheet.frame)
                     //each time around we add the frame size to our xpos, moving along the source image
                     advert.sheet.xpos += 756;
                     //increase the frame so we know which frame of our animation we are currently on
@@ -232,7 +232,11 @@ window.onload = function ()
          
     advert.sheet_cont_1.canvas.width = advert.sheet_cont_1.ADD_WIDTH;
     advert.sheet_cont_1.canvas.height = advert.sheet_cont_1.ADD_HEIGHT;
+    
     advert.sheet_cont_1.index =0;
+    advert.sheet_cont_1.frame =0;
+    advert.sheet_cont_1.xpos = advert.sheet_cont_1.ypos = 0;
+    advert.sheet_cont_1.numFrames = 20;
 
     // preload all the images;
 
@@ -240,18 +244,17 @@ window.onload = function ()
 
 	    advert.sheet_cont_1.loaded = 0;
         advert.sheet_cont_1.ready = false;
-	    advert.sheet_cont_1.totalToLoad = 40;
+	    advert.sheet_cont_1.totalToLoad = 2;
 	    advert.sheet_cont_1.path = 'img/sheet_cont_1/';
-	    advert.sheet_cont_1.images = ['sheet_cont_1_28.png','sheet_cont_1_29.png','sheet_cont_1_30.png','sheet_cont_1_31.png','sheet_cont_1_32.png','sheet_cont_1_33.png','sheet_cont_1_34.png','sheet_cont_1_35.png','sheet_cont_1_36.png','sheet_cont_1_37.png','sheet_cont_1_38.png','sheet_cont_1_39.png','sheet_cont_1_40.png','sheet_cont_1_41.png','sheet_cont_1_42.png','sheet_cont_1_43.png','sheet_cont_1_44.png','sheet_cont_1_45.png','sheet_cont_1_46.png','sheet_cont_1_47.png','sheet_cont_1_48.png','sheet_cont_1_49.png','sheet_cont_1_50.png','sheet_cont_1_51.png','sheet_cont_1_52.png','sheet_cont_1_53.png','sheet_cont_1_54.png','sheet_cont_1_55.png','sheet_cont_1_56.png','sheet_cont_1_57.png','sheet_cont_1_58.png','sheet_cont_1_59.png','sheet_cont_1_60.png','sheet_cont_1_61.png','sheet_cont_1_62.png','sheet_cont_1_63.png','sheet_cont_1_64.png','sheet_cont_1_65.png','sheet_cont_1_66.png','sheet_cont_1_67.png'];
-	    advert.sheet_cont_1.resources = new Array();
-
-
+	    advert.sheet_cont_1.images = ['sheet_cont_1_A.png','sheet_cont_1_B.png'];
+        advert.sheet_cont_1.resources = new Array();
 
 	    for (image in advert.sheet_cont_1.images) {
 
 	       
 	    	var ni = new Image();
 	    	ni.src = advert.sheet_cont_1.path + advert.sheet_cont_1.images[image];
+            console.log(ni);
 	    	advert.sheet_cont_1.resources.push(ni);
 
 	    	advert.sheet_cont_1.resources[image].onload = function() {
@@ -290,15 +293,38 @@ window.onload = function ()
 
     		advert.sheet_cont_1.request  = requestAnimationFrame(advert.sheet_cont_1.drawFrame, advert.sheet_cont_1.canvas);
     		advert.sheet_cont_1.c.clearRect(0,0, advert.sheet_cont_1.ADD_WIDTH, advert.sheet_cont_1.ADD_HEIGHT);
-    		advert.sheet_cont_1.c.drawImage(advert.sheet_cont_1.resources[advert.sheet_cont_1.index],0,0, 756,150,0,0,756,150);
-    		advert.sheet_cont_1.index++;
+    		//advert.sheet_cont_1.c.drawImage(advert.sheet_cont_1.resources[advert.sheet_cont_1.index],0,0, 756,150,0,0,756,150);
+    		//advert.sheet_cont_1.index++;
+            advert.sheet_cont_1.c.drawImage(advert.sheet_cont_1.resources[advert.sheet_cont_1.index],advert.sheet_cont_1.xpos,advert.sheet_cont_1.ypos,756,150,0,0,756,150);
+            //advert.sheet.index++;
+
+            //>     Sprite Sheet iteration
+                    console.log("cont_1",  advert.sheet_cont_1.index, advert.sheet_cont_1.frame)
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet_cont_1.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet_cont_1.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet_cont_1.frame >= advert.sheet_cont_1.numFrames) {
+                        advert.sheet_cont_1.xpos =0;
+                        advert.sheet_cont_1.ypos =0;
+                        advert.sheet_cont_1.frame=0;  
+                        advert.sheet_cont_1.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet_cont_1.xpos + 756 > advert.sheet_cont_1.resources[advert.sheet_cont_1.index].width){
+                       advert.sheet_cont_1.xpos =0;
+                       advert.sheet_cont_1.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
+
 
     		    if(advert.sheet_cont_1.index>=advert.sheet_cont_1.totalToLoad) {
                   advert.sheet_cont_1.index = 0;
                   cancelAnimationFrame(advert.sheet_cont_1.request);
 
                   // makes a delay of 4 seconds
-                  advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_2.drawFrame(), advert.sheet_cont_2.drawFrame()}, 2000);
+                  //advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_2.drawFrame(), advert.sheet_cont_2.drawFrame()}, 2000);
                     
                 }
 

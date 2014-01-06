@@ -171,6 +171,14 @@ window.onload = function ()
 			//advert.sheet.drawFrame();
             advert.checkAssetsLoaded ();
 
+                        // forcing Chrome to keep the image in cache for smooth playback;
+            var  decodeCanvas = document.createElement('canvas');
+            var dectodeCtx = decodeCanvas.getContext('2d');
+            decodeCanvas.width = advert.sheet.resources[1].width;
+            decodeCanvas.height = advert.sheet.resources[1].height;
+            dectodeCtx.drawImage(advert.sheet.resources[1], 0, 0);
+
+
     	}
 
     }
@@ -205,6 +213,8 @@ window.onload = function ()
                        advert.sheet.ypos += 150;
                     }
 
+
+
             //> The end of spritesheet iteration
 
     		    if(advert.sheet.index>=advert.sheet.totalToLoad) {
@@ -223,6 +233,46 @@ window.onload = function ()
 
     }
 
+    advert.sheet.animateWhiteSheet  = function (sh) {
+
+    // first check if the there is anything to draw
+    if(advert.sheet.index<advert.sheet.totalToLoad) {
+        console.log("drawing the white sheet of paper", advert.sheet.index, advert.sheet.frame, advert.sheet.xpos, advert.sheet.ypos);
+        sh.c.clearRect(0,0, advert.sheet.ADD_WIDTH, advert.sheet.ADD_HEIGHT);
+        sh.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
+        advert.sheet.xpos += 756;
+        advert.sheet.frame += 1; 
+
+        if (advert.sheet.frame >= advert.sheet.numFrames) {
+                        advert.sheet.xpos =0;
+                        advert.sheet.ypos =0;
+                        advert.sheet.frame=0;  
+                        advert.sheet.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
+                       advert.sheet.xpos =0;
+                       advert.sheet.ypos += 150;
+                    }
+
+    } else if(advert.sheet.index>=advert.sheet.totalToLoad) {
+            console.log("not drawing the white sheet of paper anymeor", advert.sheet.index, advert.sheet.totalToLoad)
+            //sh.index = 0;
+            advert.sheet.index = 0;
+        
+        } else {
+            console.log("some other errro", advert.sheet.index, advert.sheet.totalToLoad)
+        }
+
+    }
+
+    advert.chromeCacheHack = function (obj) {
+
+
+
+    }
+
+
+
     /*---- slide content 1 ---- */
     advert.sheet_cont_1.ADD_WIDTH = 756; 
     advert.sheet_cont_1.ADD_HEIGHT = 150;        
@@ -234,7 +284,7 @@ window.onload = function ()
     advert.sheet_cont_1.canvas.height = advert.sheet_cont_1.ADD_HEIGHT;
     
     advert.sheet_cont_1.index =0;
-    advert.sheet_cont_1.frame =0;
+    advert.sheet_cont_1.frame =1;
     advert.sheet_cont_1.xpos = advert.sheet_cont_1.ypos = 0;
     advert.sheet_cont_1.numFrames = 20;
 
@@ -248,6 +298,7 @@ window.onload = function ()
 	    advert.sheet_cont_1.path = 'img/sheet_cont_1/';
 	    advert.sheet_cont_1.images = ['sheet_cont_1_A.png','sheet_cont_1_B.png'];
         advert.sheet_cont_1.resources = new Array();
+        advert.sheet_cont_1.chResources = new Array();
 
 	    for (image in advert.sheet_cont_1.images) {
 
@@ -261,6 +312,8 @@ window.onload = function ()
 	    		advert.sheet_cont_1.loaded ++ ;
 	    		advert.sheet_cont_1.loadingProgressCheck(advert.sheet_cont_1.loaded);
 	    	}
+
+           
 
 
 	    }
@@ -280,6 +333,16 @@ window.onload = function ()
             advert.sheet_cont_1.ready = true;
             advert.checkAssetsLoaded ();
 
+
+            // forcing Chrome to keep the image in cache for smooth playback;
+            var  decodeCanvas = document.createElement('canvas');
+            var dectodeCtx = decodeCanvas.getContext('2d');
+            decodeCanvas.width = advert.sheet_cont_1.resources[1].width;
+            decodeCanvas.height = advert.sheet_cont_1.resources[1].height;
+            dectodeCtx.drawImage(advert.sheet_cont_1.resources[1], 0, 0);
+
+        
+
     	}
 
     }
@@ -289,29 +352,38 @@ window.onload = function ()
 
     advert.sheet_cont_1.drawFrame  = function () {
 
+        //console.log("++");
     	advert.sheet_cont_1.ffp =  setTimeout(function () {
 
     		advert.sheet_cont_1.request  = requestAnimationFrame(advert.sheet_cont_1.drawFrame, advert.sheet_cont_1.canvas);
     		advert.sheet_cont_1.c.clearRect(0,0, advert.sheet_cont_1.ADD_WIDTH, advert.sheet_cont_1.ADD_HEIGHT);
     		//advert.sheet_cont_1.c.drawImage(advert.sheet_cont_1.resources[advert.sheet_cont_1.index],0,0, 756,150,0,0,756,150);
     		//advert.sheet_cont_1.index++;
+           
+
             advert.sheet_cont_1.c.drawImage(advert.sheet_cont_1.resources[advert.sheet_cont_1.index],advert.sheet_cont_1.xpos,advert.sheet_cont_1.ypos,756,150,0,0,756,150);
             //advert.sheet.index++;
 
+            //draws the white sheet 
+            advert.sheet.animateWhiteSheet(advert.sheet);
+
             //>     Sprite Sheet iteration
-                    console.log("cont_1",  advert.sheet_cont_1.index, advert.sheet_cont_1.frame)
+                    
                     //each time around we add the frame size to our xpos, moving along the source image
                     advert.sheet_cont_1.xpos += 756;
                     //increase the frame so we know which frame of our animation we are currently on
                     advert.sheet_cont_1.frame += 1;
                     //if our index is higher than our total number of frames, we're at the end and better start over
-                    if (advert.sheet_cont_1.frame >= advert.sheet_cont_1.numFrames) {
+                    if (advert.sheet_cont_1.frame >= advert.sheet_cont_1.numFrames+1) {
+                       // console.log("first image finished");
                         advert.sheet_cont_1.xpos =0;
                         advert.sheet_cont_1.ypos =0;
-                        advert.sheet_cont_1.frame=0;  
+                        advert.sheet_cont_1.frame=1;  
                         advert.sheet_cont_1.index++;  
                     //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
                     } else if (advert.sheet_cont_1.xpos + 756 > advert.sheet_cont_1.resources[advert.sheet_cont_1.index].width){
+                       //  console.log("moving down");
+
                        advert.sheet_cont_1.xpos =0;
                        advert.sheet_cont_1.ypos += 150;
                     }
@@ -320,13 +392,18 @@ window.onload = function ()
 
 
     		    if(advert.sheet_cont_1.index>=advert.sheet_cont_1.totalToLoad) {
-                  advert.sheet_cont_1.index = 0;
+
+                  //console.log("the end of spritesheet iteration");
+                  //advert.sheet_cont_1.index = 0;
                   cancelAnimationFrame(advert.sheet_cont_1.request);
 
-                  // makes a delay of 4 seconds
-                  //advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_2.drawFrame(), advert.sheet_cont_2.drawFrame()}, 2000);
+                  // makes a delay of 2 seconds
+                  advert.sheet.index=0;advert.sheet.frame=0;
+                  advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_cont_2.drawFrame()}, 2000);
                     
                 }
+
+                console.log("cont_1",  advert.sheet_cont_1.index, advert.sheet_cont_1.frame, "----" ,advert.sheet_cont_1.xpos,advert.sheet_cont_1.ypos,advert.sheet_cont_1.numFrames)
 
     		//cancelAnimationFrame(advert.sheet_cont_1.request);
     	}, 1000/frameRate)
@@ -349,52 +426,9 @@ window.onload = function ()
          
     advert.sheet_2.canvas.width = advert.sheet_2.ADD_WIDTH;
     advert.sheet_2.canvas.height = advert.sheet_2.ADD_HEIGHT;
+    advert.sheet_2.index =0;
 
 
-    advert.sheet_2.drawFrame = function () {
-
-        
-
-            advert.sheet_2.ffp =  setTimeout(function () {
-
-            advert.sheet_2.request  = requestAnimationFrame(advert.sheet_2.drawFrame, advert.sheet_2.canvas);
-            advert.sheet_2.c.clearRect(0,0, advert.sheet_2.ADD_WIDTH, advert.sheet_2.ADD_HEIGHT);
-          //  advert.sheet_2.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
-            advert.sheet_2.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
-            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-          
-                   //>     Sprite Sheet iteration
-                    console.log( advert.sheet.index, advert.sheet.frame)
-                    //each time around we add the frame size to our xpos, moving along the source image
-                    advert.sheet.xpos += 756;
-                    //increase the frame so we know which frame of our animation we are currently on
-                    advert.sheet.frame += 1;
-                    //if our index is higher than our total number of frames, we're at the end and better start over
-                    if (advert.sheet.frame >= advert.sheet.numFrames) {
-                        advert.sheet.xpos =0;
-                        advert.sheet.ypos =0;
-                        advert.sheet.frame=0;  
-                        advert.sheet.index++;  
-                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
-                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
-                       advert.sheet.xpos =0;
-                       advert.sheet.ypos += 150;
-                    }
-
-            //> The end of spritesheet iteration
-
-                if(advert.sheet.index>=advert.sheet.totalToLoad) {
-                  advert.sheet.index = 0;
-                  cancelAnimationFrame(advert.sheet_2.request);
-                  console.log("--the end of WHITE SHEET 2");
-                }
-
-            
-            //cancelAnimationFrame(advert.sheet.request);
-        }, 1000/frameRate)
-        //only once
-
-}
 
 
 
@@ -409,15 +443,20 @@ window.onload = function ()
     advert.sheet_cont_2.canvas.height = advert.sheet_cont_2.ADD_HEIGHT;
     advert.sheet_cont_2.index =0;
 
+
+    advert.sheet_cont_2.frame =1;
+    advert.sheet_cont_2.xpos = advert.sheet_cont_2.ypos = 0;
+    advert.sheet_cont_2.numFrames = 20;
+
     // preload all the images;
 
     advert.sheet_cont_2.preload = function () {
 
         advert.sheet_cont_2.loaded = 0;
         advert.sheet_cont_2.ready = false;
-        advert.sheet_cont_2.totalToLoad = 40;
+        advert.sheet_cont_2.totalToLoad = 2;
         advert.sheet_cont_2.path = 'img/sheet_cont_2/';
-        advert.sheet_cont_2.images = ['sheet_cont_2_28.png','sheet_cont_2_29.png','sheet_cont_2_30.png','sheet_cont_2_31.png','sheet_cont_2_32.png','sheet_cont_2_33.png','sheet_cont_2_34.png','sheet_cont_2_35.png','sheet_cont_2_36.png','sheet_cont_2_37.png','sheet_cont_2_38.png','sheet_cont_2_39.png','sheet_cont_2_40.png','sheet_cont_2_41.png','sheet_cont_2_42.png','sheet_cont_2_43.png','sheet_cont_2_44.png','sheet_cont_2_45.png','sheet_cont_2_46.png','sheet_cont_2_47.png','sheet_cont_2_48.png','sheet_cont_2_49.png','sheet_cont_2_50.png','sheet_cont_2_51.png','sheet_cont_2_52.png','sheet_cont_2_53.png','sheet_cont_2_54.png','sheet_cont_2_55.png','sheet_cont_2_56.png','sheet_cont_2_57.png','sheet_cont_2_58.png','sheet_cont_2_59.png','sheet_cont_2_60.png','sheet_cont_2_61.png','sheet_cont_2_62.png','sheet_cont_2_63.png','sheet_cont_2_64.png','sheet_cont_2_65.png','sheet_cont_2_66.png','sheet_cont_2_67.png'];
+        advert.sheet_cont_2.images = ['sheet_cont_2_A.png','sheet_cont_2_B.png'];
         advert.sheet_cont_2.resources = new Array();
 
 
@@ -450,6 +489,13 @@ window.onload = function ()
             //advert.sheet_cont_1.drawFrame();
             advert.sheet_cont_2.ready = true;
             advert.checkAssetsLoaded ();
+
+            // forcing Chrome to keep the image in cache for smooth playback;
+            var  decodeCanvas = document.createElement('canvas');
+            var dectodeCtx = decodeCanvas.getContext('2d');
+            decodeCanvas.width = advert.sheet_cont_2.resources[1].width;
+            decodeCanvas.height = advert.sheet_cont_2.resources[1].height;
+            dectodeCtx.drawImage(advert.sheet_cont_2.resources[1], 0, 0);
         }
 
     }
@@ -461,25 +507,54 @@ window.onload = function ()
 
         advert.sheet_cont_2.ffp =  setTimeout(function () {
 
-            advert.sheet_cont_2.request  = requestAnimationFrame(advert.sheet_cont_2.drawFrame, advert.sheet_cont_2.canvas);
-            advert.sheet_cont_2.c.clearRect(0,0, advert.sheet_cont_2.ADD_WIDTH, advert.sheet_cont_2.ADD_HEIGHT);
-            advert.sheet_cont_2.c.drawImage(advert.sheet_cont_2.resources[advert.sheet_cont_2.index],0,0, 756,150,0,0,756,150);
-            advert.sheet_cont_2.index++;
+          advert.sheet_cont_2.request  = requestAnimationFrame(advert.sheet_cont_2.drawFrame, advert.sheet_cont_2.canvas);
+          advert.sheet_cont_2.c.clearRect(0,0, advert.sheet_cont_2.ADD_WIDTH, advert.sheet_cont_2.ADD_HEIGHT);
+          advert.sheet_cont_2.c.drawImage(advert.sheet_cont_2.resources[advert.sheet_cont_2.index],advert.sheet_cont_2.xpos,advert.sheet_cont_2.ypos,756,150,0,0,756,150);
+            //advert.sheet.index++;
+
+            //draws the white sheet 
+            advert.sheet.animateWhiteSheet(advert.sheet_2);
+
+            //>     Sprite Sheet iteration
+                    
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet_cont_2.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet_cont_2.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet_cont_2.frame >= advert.sheet_cont_2.numFrames+1) {
+                       // console.log("first image finished");
+                        advert.sheet_cont_2.xpos =0;
+                        advert.sheet_cont_2.ypos =0;
+                        advert.sheet_cont_2.frame=1;  
+                        advert.sheet_cont_2.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet_cont_2.xpos + 756 > advert.sheet_cont_2.resources[advert.sheet_cont_2.index].width){
+                       //  console.log("moving down");
+
+                       advert.sheet_cont_2.xpos =0;
+                       advert.sheet_cont_2.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
+
 
                 if(advert.sheet_cont_2.index>=advert.sheet_cont_2.totalToLoad) {
-                  advert.sheet_cont_2.index = 0;
+
+                  //console.log("the end of spritesheet iteration");
+                  //advert.sheet_cont_1.index = 0;
                   cancelAnimationFrame(advert.sheet_cont_2.request);
 
-                  // makes a delay of 4 seconds
-                 // advert.sheet_cont_2.timer = setTimeout(function() {advert.sheet_2.drawFrame()}, 2000);
-
-                advert.sheet_cont_2.timer = setTimeout(function() {advert.sheet_3.drawFrame(),advert.sheet_cont_3.drawFrame()}, 2000);
+                  // makes a delay of 2 seconds
+                  advert.sheet.index=0;advert.sheet.frame=0;
+                  advert.sheet_cont_2.timer = setTimeout(function() {advert.sheet_cont_3.drawFrame()}, 2000);
                     
                 }
 
-            //cancelAnimationFrame(advert.sheet_cont_1.request);
+                //console.log("cont_1",  advert.sheet_cont_1.index, advert.sheet_cont_1.frame, "----" ,advert.sheet_cont_1.xpos,advert.sheet_cont_1.ypos,advert.sheet_cont_1.numFrames)
+
         }, 1000/frameRate)
-        //only once
+ 
         
 
 
@@ -500,52 +575,7 @@ window.onload = function ()
     advert.sheet_3.canvas.height = advert.sheet_3.ADD_HEIGHT;
     advert.sheet_3.index =0;
 
-    advert.sheet_3.drawFrame = function () {
 
-
-            advert.sheet_3.ffp =  setTimeout(function () {
-
-            advert.sheet_3.request  = requestAnimationFrame(advert.sheet_3.drawFrame, advert.sheet_3.canvas);
-            advert.sheet_3.c.clearRect(0,0, advert.sheet_3.ADD_WIDTH, advert.sheet_3.ADD_HEIGHT);
-            //advert.sheet_3.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
-            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-            
-             advert.sheet_3.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
-            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-          
-                   //>     Sprite Sheet iteration
-                    console.log( advert.sheet.index, advert.sheet.frame)
-                    //each time around we add the frame size to our xpos, moving along the source image
-                    advert.sheet.xpos += 756;
-                    //increase the frame so we know which frame of our animation we are currently on
-                    advert.sheet.frame += 1;
-                    //if our index is higher than our total number of frames, we're at the end and better start over
-                    if (advert.sheet.frame >= advert.sheet.numFrames) {
-                        advert.sheet.xpos =0;
-                        advert.sheet.ypos =0;
-                        advert.sheet.frame=0;  
-                        advert.sheet.index++;  
-                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
-                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
-                       advert.sheet.xpos =0;
-                       advert.sheet.ypos += 150;
-                    }
-
-            //> The end of spritesheet iteration
-
-                if(advert.sheet.index>=advert.sheet.totalToLoad) {
-                  advert.sheet.index = 0;
-                  cancelAnimationFrame(advert.sheet_3.request);
-                    // makes a delay of 4 seconds
-               
-                }
-
-            
-            //cancelAnimationFrame(advert.sheet.request);
-        }, 1000/frameRate)
-        //only once
-
-}
 
  /*---- slide content 3 ---- */
     advert.sheet_cont_3.ADD_WIDTH = 756; 
@@ -558,15 +588,18 @@ window.onload = function ()
     advert.sheet_cont_3.canvas.height = advert.sheet_cont_3.ADD_HEIGHT;
     advert.sheet_cont_3.index =0;
 
+    advert.sheet_cont_3.frame =1;
+    advert.sheet_cont_3.xpos = advert.sheet_cont_3.ypos = 0;
+    advert.sheet_cont_3.numFrames = 22;
     // preload all the images;
 
     advert.sheet_cont_3.preload = function () {
 
         advert.sheet_cont_3.loaded = 0;
-         advert.sheet_cont_3.ready = false;
-        advert.sheet_cont_3.totalToLoad = 40;
+        advert.sheet_cont_3.ready = false;
+        advert.sheet_cont_3.totalToLoad = 1;
         advert.sheet_cont_3.path = 'img/sheet_cont_3/';
-        advert.sheet_cont_3.images = ['sheet_cont_3_28.png','sheet_cont_3_29.png','sheet_cont_3_30.png','sheet_cont_3_31.png','sheet_cont_3_32.png','sheet_cont_3_33.png','sheet_cont_3_34.png','sheet_cont_3_35.png','sheet_cont_3_36.png','sheet_cont_3_37.png','sheet_cont_3_38.png','sheet_cont_3_39.png','sheet_cont_3_40.png','sheet_cont_3_41.png','sheet_cont_3_42.png','sheet_cont_3_43.png','sheet_cont_3_44.png','sheet_cont_3_45.png','sheet_cont_3_46.png','sheet_cont_3_47.png','sheet_cont_3_48.png','sheet_cont_3_49.png','sheet_cont_3_50.png','sheet_cont_3_51.png','sheet_cont_3_52.png','sheet_cont_3_53.png','sheet_cont_3_54.png','sheet_cont_3_55.png','sheet_cont_3_56.png','sheet_cont_3_57.png','sheet_cont_3_58.png','sheet_cont_3_59.png','sheet_cont_3_60.png','sheet_cont_3_61.png','sheet_cont_3_62.png','sheet_cont_3_63.png','sheet_cont_3_64.png','sheet_cont_3_65.png','sheet_cont_3_66.png','sheet_cont_3_67.png'];
+        advert.sheet_cont_3.images = ['sheet_cont_3_A.png'];
         advert.sheet_cont_3.resources = new Array();
 
 
@@ -597,8 +630,12 @@ window.onload = function ()
             //start the action here;
 
             //advert.sheet_cont_1.drawFrame();
-             advert.sheet_cont_3.ready = true;
+            advert.sheet_cont_3.ready = true;
             advert.checkAssetsLoaded ();
+
+          
+
+     
 
         }
 
@@ -611,21 +648,52 @@ window.onload = function ()
 
         advert.sheet_cont_3.ffp =  setTimeout(function () {
 
-            advert.sheet_cont_3.request  = requestAnimationFrame(advert.sheet_cont_3.drawFrame, advert.sheet_cont_3.canvas);
-            advert.sheet_cont_3.c.clearRect(0,0, advert.sheet_cont_3.ADD_WIDTH, advert.sheet_cont_3.ADD_HEIGHT);
-            advert.sheet_cont_3.c.drawImage(advert.sheet_cont_3.resources[advert.sheet_cont_3.index],0,0, 756,150,0,0,756,150);
-            advert.sheet_cont_3.index++;
+          advert.sheet_cont_3.request  = requestAnimationFrame(advert.sheet_cont_3.drawFrame, advert.sheet_cont_3.canvas);
+          advert.sheet_cont_3.c.clearRect(0,0, advert.sheet_cont_3.ADD_WIDTH, advert.sheet_cont_3.ADD_HEIGHT);
+          advert.sheet_cont_3.c.drawImage(advert.sheet_cont_3.resources[advert.sheet_cont_3.index],advert.sheet_cont_3.xpos,advert.sheet_cont_3.ypos,756,150,0,0,756,150);
+            //advert.sheet.index++;
+
+            //draws the white sheet 
+            advert.sheet.animateWhiteSheet(advert.sheet_3);
+
+            //>     Sprite Sheet iteration
+                    
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet_cont_3.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet_cont_3.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet_cont_3.frame >= advert.sheet_cont_3.numFrames+1) {
+                       // console.log("first image finished");
+                        advert.sheet_cont_3.xpos =0;
+                        advert.sheet_cont_3.ypos =0;
+                        advert.sheet_cont_3.frame=1;  
+                        advert.sheet_cont_3.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet_cont_3.xpos + 756 > advert.sheet_cont_3.resources[advert.sheet_cont_3.index].width){
+                       //  console.log("moving down");
+
+                       advert.sheet_cont_3.xpos =0;
+                       advert.sheet_cont_3.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
+
 
                 if(advert.sheet_cont_3.index>=advert.sheet_cont_3.totalToLoad) {
-                  advert.sheet_cont_3.index = 0;
+
+                  //console.log("the end of spritesheet iteration");
+                  //advert.sheet_cont_1.index = 0;
                   cancelAnimationFrame(advert.sheet_cont_3.request);
 
-                  // makes a delay of 4 seconds
-                  advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_4.drawFrame(),  advert.sheet_cont_4.drawFrame()}, 2000);
+                  // makes a delay of 2 seconds
+                  advert.sheet.index=0;advert.sheet.frame=0;
+                  advert.sheet.xpos=0; advert.sheet.ypos =0;
+                  advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, 2000);
                     
                 }
 
-            //cancelAnimationFrame(advert.sheet_cont_1.request);
+
         }, 1000/frameRate)
         //only once
         
@@ -647,54 +715,7 @@ window.onload = function ()
     advert.sheet_4.canvas.height = advert.sheet_4.ADD_HEIGHT;
     advert.sheet_4.index =0;
 
-    advert.sheet_4.drawFrame = function () {
-
-
-            advert.sheet_4.ffp =  setTimeout(function () {
-
-            advert.sheet_4.request  = requestAnimationFrame(advert.sheet_4.drawFrame, advert.sheet_4.canvas);
-            advert.sheet_4.c.clearRect(0,0, advert.sheet_4.ADD_WIDTH, advert.sheet_4.ADD_HEIGHT);
-            //advert.sheet_4.c.drawImage(advert.sheet.resources[advert.sheet.index],0,0, 756,150,0,0,756,150);
-            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-            //advert.sheet.index++;
-
-             advert.sheet_4.c.drawImage(advert.sheet.resources[advert.sheet.index],advert.sheet.xpos,advert.sheet.ypos,756,150,0,0,756,150);
-            //console.log("---" ,advert.sheet.index, advert.sheet.resources.length);
-          
-                   //>     Sprite Sheet iteration
-                    console.log( advert.sheet.index, advert.sheet.frame)
-                    //each time around we add the frame size to our xpos, moving along the source image
-                    advert.sheet.xpos += 756;
-                    //increase the frame so we know which frame of our animation we are currently on
-                    advert.sheet.frame += 1;
-                    //if our index is higher than our total number of frames, we're at the end and better start over
-                    if (advert.sheet.frame >= advert.sheet.numFrames) {
-                        advert.sheet.xpos =0;
-                        advert.sheet.ypos =0;
-                        advert.sheet.frame=0;  
-                        advert.sheet.index++;  
-                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
-                    } else if (advert.sheet.xpos + 756 > advert.sheet.resources[advert.sheet.index].width){
-                       advert.sheet.xpos =0;
-                       advert.sheet.ypos += 150;
-                    }
-
-            //> The end of spritesheet iteration
-
-
-                if(advert.sheet.index>=advert.sheet.totalToLoad) {
-                  advert.sheet.index = 0;
-                  cancelAnimationFrame(advert.sheet_4.request);
-                    // makes a delay of 4 seconds
-               
-                }
-
-            
-            //cancelAnimationFrame(advert.sheet.request);
-        }, 1000/frameRate)
-        //only once
-
-}
+ 
 
 
 /*---- slide content 4 ---- */
@@ -708,15 +729,19 @@ window.onload = function ()
     advert.sheet_cont_4.canvas.height = advert.sheet_cont_4.ADD_HEIGHT;
     advert.sheet_cont_4.index =0;
 
+    advert.sheet_cont_4.frame =1;
+    advert.sheet_cont_4.xpos = advert.sheet_cont_4.ypos = 0;
+    advert.sheet_cont_4.numFrames = 20;
+
     // preload all the images;
 
     advert.sheet_cont_4.preload = function () {
 
         advert.sheet_cont_4.loaded = 0;
          advert.sheet_cont_4.ready = false;
-        advert.sheet_cont_4.totalToLoad = 40;
+        advert.sheet_cont_4.totalToLoad = 2;
         advert.sheet_cont_4.path = 'img/sheet_cont_4/';
-        advert.sheet_cont_4.images = ['sheet_cont_4_28.png','sheet_cont_4_29.png','sheet_cont_4_30.png','sheet_cont_4_31.png','sheet_cont_4_32.png','sheet_cont_4_33.png','sheet_cont_4_34.png','sheet_cont_4_35.png','sheet_cont_4_36.png','sheet_cont_4_37.png','sheet_cont_4_38.png','sheet_cont_4_39.png','sheet_cont_4_40.png','sheet_cont_4_41.png','sheet_cont_4_42.png','sheet_cont_4_43.png','sheet_cont_4_44.png','sheet_cont_4_45.png','sheet_cont_4_46.png','sheet_cont_4_47.png','sheet_cont_4_48.png','sheet_cont_4_49.png','sheet_cont_4_50.png','sheet_cont_4_51.png','sheet_cont_4_52.png','sheet_cont_4_53.png','sheet_cont_4_54.png','sheet_cont_4_55.png','sheet_cont_4_56.png','sheet_cont_4_57.png','sheet_cont_4_58.png','sheet_cont_4_59.png','sheet_cont_4_60.png','sheet_cont_4_61.png','sheet_cont_4_62.png','sheet_cont_4_63.png','sheet_cont_4_64.png','sheet_cont_4_65.png','sheet_cont_4_66.png','sheet_cont_4_67.png'];
+        advert.sheet_cont_4.images = ['sheet_cont_4_A.png','sheet_cont_4_B.png'];
         advert.sheet_cont_4.resources = new Array();
 
 
@@ -750,6 +775,13 @@ window.onload = function ()
             advert.sheet_cont_4.ready = true;
             advert.checkAssetsLoaded ();
 
+              // forcing Chrome to keep the image in cache for smooth playback;
+            var  decodeCanvas = document.createElement('canvas');
+            var dectodeCtx = decodeCanvas.getContext('2d');
+            decodeCanvas.width = advert.sheet_cont_4.resources[1].width;
+            decodeCanvas.height = advert.sheet_cont_4.resources[1].height;
+            dectodeCtx.drawImage(advert.sheet_cont_4.resources[1], 0, 0);
+
         }
 
     }
@@ -760,23 +792,53 @@ window.onload = function ()
     advert.sheet_cont_4.drawFrame  = function () {
 
         advert.sheet_cont_4.ffp =  setTimeout(function () {
+         advert.sheet_cont_4.request  = requestAnimationFrame(advert.sheet_cont_4.drawFrame, advert.sheet_cont_4.canvas);
+         advert.sheet_cont_4.c.clearRect(0,0, advert.sheet_cont_4.ADD_WIDTH, advert.sheet_cont_4.ADD_HEIGHT);
+         advert.sheet_cont_4.c.drawImage(advert.sheet_cont_4.resources[advert.sheet_cont_4.index],advert.sheet_cont_4.xpos,advert.sheet_cont_4.ypos,756,150,0,0,756,150);
+            //advert.sheet.index++;
 
-            advert.sheet_cont_4.request  = requestAnimationFrame(advert.sheet_cont_4.drawFrame, advert.sheet_cont_4.canvas);
-            advert.sheet_cont_4.c.clearRect(0,0, advert.sheet_cont_4.ADD_WIDTH, advert.sheet_cont_4.ADD_HEIGHT);
-            advert.sheet_cont_4.c.drawImage(advert.sheet_cont_4.resources[advert.sheet_cont_4.index],0,0, 756,150,0,0,756,150);
-            advert.sheet_cont_4.index++;
+            //draws the white sheet 
+            
+
+            //>     Sprite Sheet iteration
+                    
+                    //each time around we add the frame size to our xpos, moving along the source image
+                    advert.sheet_cont_4.xpos += 756;
+                    //increase the frame so we know which frame of our animation we are currently on
+                    advert.sheet_cont_4.frame += 1;
+                    //if our index is higher than our total number of frames, we're at the end and better start over
+                    if (advert.sheet_cont_4.frame >= advert.sheet_cont_4.numFrames+1) {
+                       // console.log("first image finished");
+                        advert.sheet_cont_4.xpos =0;
+                        advert.sheet_cont_4.ypos =0;
+                        advert.sheet_cont_4.frame=1;  
+                        advert.sheet_cont_4.index++;  
+                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
+                    } else if (advert.sheet_cont_4.xpos + 756 > advert.sheet_cont_4.resources[advert.sheet_cont_4.index].width){
+                       //  console.log("moving down");
+
+                       advert.sheet_cont_4.xpos =0;
+                       advert.sheet_cont_4.ypos += 150;
+                    }
+
+            //> The end of spritesheet iteration
+
 
                 if(advert.sheet_cont_4.index>=advert.sheet_cont_4.totalToLoad) {
-                  advert.sheet_cont_4.index = 0;
+
+                  //console.log("the end of spritesheet iteration");
+                  //advert.sheet_cont_1.index = 0;
                   cancelAnimationFrame(advert.sheet_cont_4.request);
 
-                  // makes a delay of 4 seconds
-                  advert.showButton();
-                  advert.sheet_cont_4.timer = setTimeout(function() {advert.sheet_5.drawFrame(),  advert.sheet_cont_5.drawFrame()}, 2000);
+                  // makes a delay of 2 seconds
+                  //advert.sheet.index=0; advert.sheet.frame=0;
+
+                  //advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, 2000);
                     
                 }
 
-            //cancelAnimationFrame(advert.sheet_cont_1.request);
+                advert.sheet.animateWhiteSheet(advert.sheet_4);
+         
         }, 1000/frameRate)
         //only once
         
@@ -1037,7 +1099,7 @@ advert.checkAssetsLoaded = function () {
  advert.sheet_cont_2.ready,
  advert.sheet_cont_3.ready,
  advert.sheet_cont_4.ready,
- advert.sheet_cont_5.ready,
+ //advert.sheet_cont_5.ready,
  advert.buttons.ready);
     console.log(arr )
 
@@ -1064,7 +1126,7 @@ advert.playBanner = function () {
 
 
     advert.base.drawFrame();
-    advert.sheet.drawFrame();
+    //advert.sheet.drawFrame();
     advert.sheet_cont_1.drawFrame();
 
     advert.buttons.drawFrame();
@@ -1076,7 +1138,7 @@ advert.playBanner = function () {
 
 advert.init = function () {
     advert.buttons.preload();
-    advert.sheet_cont_5.preload();
+   // advert.sheet_cont_5.preload();
     advert.sheet_cont_4.preload();
     advert.sheet_cont_3.preload();
     advert.sheet_cont_2.preload();

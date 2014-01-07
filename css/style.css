@@ -94,3 +94,25 @@ top:35px;
 left:890px;
 z-index: 100;
 }
+
+#caption_1 {
+	position: absolute;
+	display: block;
+	width:756px;
+	height:150px;
+	top:0px;
+	left:0px;
+	z-index: 200;
+	
+}
+
+#toplayer {
+position: absolute;
+display: block;
+width:756px;
+height:150px;
+top:0px;
+left:0px;
+z-index: 1000;
+
+}

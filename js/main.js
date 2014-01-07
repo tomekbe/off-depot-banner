@@ -11,7 +11,7 @@ advert.base ={};
 advert.sheet ={};
 
 advert.sheet_cont_1 = {};
-advert.sheet_cont_1.ready = false;
+//advert.sheet_cont_1.ready = false;
 
 
 advert.sheet_2 = {};
@@ -27,7 +27,7 @@ advert.sheet_cont_4 = {};
 
 
 advert.buttons = {};
-advert.buttons.ready = false;
+//advert.buttons.ready = false;
 
 advert.toplayer = {};
 
@@ -39,7 +39,7 @@ advert.caption_1 = {};
 var frameRate =16;
 
 // in milliseconds;
-var slideDisplayTime = 2000;
+var slideDisplayTime = 1200;
 
 
 window.onload = function () 
@@ -47,7 +47,7 @@ window.onload = function ()
 {
 	
 
-	console.log("--ad--");
+	//start
 
 	advert.base.ADD_WIDTH = 756; 
     advert.base.ADD_HEIGHT = 150;        
@@ -92,11 +92,10 @@ window.onload = function ()
     advert.base.loadingProgressCheck = function(l) {
 
     	if(l==this.totalToLoad) {
-			console.log("background image --  loaded");
-			//start the action here;
+			//console.log("background image --  loaded");
+	
             advert.base.ready = true;
-			//advert.base.drawFrame();
-            advert.checkAssetsLoaded ();
+		    advert.checkAssetsLoaded ();
 
     	}
 
@@ -112,7 +111,7 @@ window.onload = function ()
     		advert.base.request  = requestAnimationFrame(advert.base.drawFrame, advert.base.canvas);
     		advert.base.c.clearRect(0,0, advert.base.ADD_WIDTH, advert.base.ADD_HEIGHT);
     		advert.base.c.drawImage(advert.base.resources[0],0,0, 756,150,0,0,756,150);
-    		console.log("--background base drawn --");
+    		//console.log("--background base drawn --");
     		cancelAnimationFrame(advert.base.request);
     	}, 1000/frameRate)
     	//only once
@@ -174,7 +173,7 @@ window.onload = function ()
     advert.sheet.loadingProgressCheck = function(l) {
 
     	if(l==this.totalToLoad) {
-			console.log("white sheet sequence - loaded");
+			//console.log("white sheet sequence - loaded");
 			//start the action here;
               advert.sheet.ready = true;
 			//advert.sheet.drawFrame();
@@ -237,7 +236,7 @@ window.onload = function ()
     }
 
 
-    advert.drawSlide  = function (ob, nextObj, whiteSheet) {
+    advert.drawSlide  = function (ob,nextObj, whiteSheet) {
 
        obj.ffp =  setTimeout(function () {
 
@@ -342,7 +341,7 @@ window.onload = function ()
 	       
 	    	var ni = new Image();
 	    	ni.src = advert.sheet_cont_1.path + advert.sheet_cont_1.images[image];
-            console.log(ni);
+            //console.log(ni);
 	    	advert.sheet_cont_1.resources.push(ni);
 
 	    	advert.sheet_cont_1.resources[image].onload = function() {
@@ -363,7 +362,7 @@ window.onload = function ()
     advert.sheet_cont_1.loadingProgressCheck = function(l) {
 
     	if(l==this.totalToLoad) {
-			console.log("slide_1 content  -- loaded");
+			//console.log("slide_1 content  -- loaded");
 			//start the action here;
 
 			//advert.sheet_cont_1.drawFrame();
@@ -403,7 +402,7 @@ window.onload = function ()
 
                   // makes a delay of 2 seconds
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                  advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_cont_2.drawFrame()}, 2000);
+                  advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_cont_2.drawFrame()}, slideDisplayTime);
                     
             }
 
@@ -440,21 +439,13 @@ window.onload = function ()
                        advert.sheet_cont_1.ypos += 150;
                     }
 
-                console.log(advert.sheet_cont_1.index,advert.sheet_cont_1.totalToLoad, advert.sheet_cont_1.frame, "iteration");
+                //console.log(advert.sheet_cont_1.index,advert.sheet_cont_1.totalToLoad, advert.sheet_cont_1.frame, "iteration");
 
             //> The end of spritesheet iteration
             }
          
            
-         
-
-    
-
-
-    		
-
-          
-    	}, 1000/frameRate)
+        }, 1000/frameRate)
     
     	
 
@@ -531,7 +522,7 @@ window.onload = function ()
     advert.sheet_cont_2.loadingProgressCheck = function(l) {
 
         if(l==this.totalToLoad) {
-            console.log("slide_2 content -- loaded");
+            
             //start the action here;
 
             //advert.sheet_cont_1.drawFrame();
@@ -566,13 +557,13 @@ window.onload = function ()
            
             if(advert.sheet_cont_2.index>=advert.sheet_cont_2.totalToLoad) {
 
-                  //console.log("the end of spritesheet iteration");
+                
                   //advert.sheet_cont_1.index = 0;
                   cancelAnimationFrame(advert.sheet_cont_2.request);
 
                   // makes a delay of 2 seconds
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                  advert.sheet_cont_2.timer = setTimeout(function() {advert.sheet_cont_3.drawFrame()}, 2000);
+                  advert.sheet_cont_2.timer = setTimeout(function() {advert.sheet_cont_3.drawFrame()}, slideDisplayTime);
                     
             }
 
@@ -609,7 +600,7 @@ window.onload = function ()
                        advert.sheet_cont_2.ypos += 150;
                     }
 
-                console.log(advert.sheet_cont_2.index,advert.sheet_cont_2.totalToLoad, advert.sheet_cont_2.frame, "iteration2");
+                //console.log(advert.sheet_cont_2.index,advert.sheet_cont_2.totalToLoad, advert.sheet_cont_2.frame, "iteration2");
 
             //> The end of spritesheet iteration
             }
@@ -696,10 +687,10 @@ window.onload = function ()
     advert.sheet_cont_3.loadingProgressCheck = function(l) {
 
         if(l==this.totalToLoad) {
-            console.log("slide_3 content -- loaded");
-            //start the action here;
+           
+            
 
-            //advert.sheet_cont_1.drawFrame();
+         
             advert.sheet_cont_3.ready = true;
             advert.checkAssetsLoaded ();
 
@@ -729,7 +720,7 @@ window.onload = function ()
 
                   // makes a delay of 2 seconds
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                 advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, 2000);
+                 advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, slideDisplayTime);
                     
             }
 
@@ -766,7 +757,7 @@ window.onload = function ()
                        advert.sheet_cont_3.ypos += 150;
                     }
 
-                console.log(advert.sheet_cont_3.index,advert.sheet_cont_3.totalToLoad, advert.sheet_cont_3.frame, "iteration3");
+                //console.log(advert.sheet_cont_3.index,advert.sheet_cont_3.totalToLoad, advert.sheet_cont_3.frame, "iteration3");
 
             //> The end of spritesheet iteration
             }
@@ -852,7 +843,7 @@ window.onload = function ()
     advert.sheet_cont_4.loadingProgressCheck = function(l) {
 
         if(l==this.totalToLoad) {
-            console.log("slide_4 content -- loaded");
+            
             //start the action here;
 
             //advert.sheet_cont_1.drawFrame();
@@ -882,8 +873,7 @@ window.onload = function ()
            
             if(advert.sheet_cont_4.index>=advert.sheet_cont_4.totalToLoad) {
 
-                  //console.log("the end of spritesheet iteration");
-                  //advert.sheet_cont_1.index = 0;
+                 //advert.sheet_cont_1.index = 0;
                   cancelAnimationFrame(advert.sheet_cont_4.request);
 
 
@@ -927,7 +917,7 @@ window.onload = function ()
                        advert.sheet_cont_4.ypos += 150;
                     }
 
-                console.log(advert.sheet_cont_4.index,advert.sheet_cont_4.totalToLoad, advert.sheet_cont_4.frame, "iteration4");
+                //console.log(advert.sheet_cont_4.index,advert.sheet_cont_4.totalToLoad, advert.sheet_cont_4.frame, "iteration4");
 
             //> The end of spritesheet iteration
             }
@@ -998,7 +988,7 @@ window.onload = function ()
     advert.buttons.loadingProgressCheck = function(l) {
 
         if(l==this.totalToLoad) {
-            console.log("buttons image --  loaded");
+           
             //start the action here;
                   advert.buttons.ready = true;
             advert.checkAssetsLoaded ();
@@ -1020,7 +1010,7 @@ window.onload = function ()
             advert.buttons.c.drawImage(advert.buttons.resources[0],0,0, 151,32,0,0,151,32);
        
             cancelAnimationFrame(advert.buttons.request);
-             console.log("buttons image --  drawn");
+             //console.log("buttons image --  drawn");
         }, 1000/frameRate)
         //only once
         
@@ -1074,7 +1064,7 @@ window.onload = function ()
     advert.caption_1.loadingProgressCheck = function(l) {
 
         if(l==this.totalToLoad) {
-            console.log("caption image --  loaded");
+            //console.log("caption image --  loaded");
             //start the action here;
             advert.caption_1.ready = true;
             advert.checkAssetsLoaded ();
@@ -1095,7 +1085,7 @@ window.onload = function ()
             advert.caption_1.c.drawImage(advert.caption_1.resources[0],0,0, 756,150,0,0,756,150)
        
             cancelAnimationFrame(advert.caption_1.request);
-            console.log("caption_1 image --  drawn");
+            //console.log("caption_1 image --  drawn");
             advert.hideCaption1();
         }, 1000/frameRate)
         //only once
@@ -1151,7 +1141,7 @@ window.onload = function ()
     advert.toplayer.loadingProgressCheck = function(l) {
 
         if(l==this.totalToLoad) {
-            console.log("toplayer image --  loaded");
+            //console.log("toplayer image --  loaded");
             //start the action here;
             advert.toplayer.ready = true;
             advert.checkAssetsLoaded ();
@@ -1172,7 +1162,7 @@ window.onload = function ()
             advert.toplayer.c.drawImage(advert.toplayer.resources[0],0,0, 756,150,0,0,756,150)
        
             cancelAnimationFrame(advert.toplayer.request);
-             console.log("toplayer image --  drawn");
+             //console.log("toplayer image --  drawn");
         }, 1000/frameRate)
         //only once
         
@@ -1193,7 +1183,7 @@ advert.showButton = function () {
 var button = document.getElementById("button-cta"); //or use jQuery's $("#photo")
 //TweenLite.to(button, 2, css:{top:"20px", backgroundColor:"#FF0000"},);
 TweenLite.to(button, 1, {css:{left:"590px"}});
-console.log("showing the button");
+//console.log("showing the button");
 
 }
 
@@ -1212,8 +1202,7 @@ advert.showCaption1 = function () {
 }
 
 advert.checkAssetsLoaded = function () {
-
-   console.log('---')  
+ 
 
  var flag = true;
  var arr = new Array (advert.base.ready,
@@ -1238,7 +1227,7 @@ advert.checkAssetsLoaded = function () {
 
     if(flag==true) {
         // this is only true 
-        console.log("+++++playback");
+        // playback time if it is true
         
         advert.playBanner();
     } else if (flag==false) {

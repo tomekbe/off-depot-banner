@@ -1117,7 +1117,7 @@ window.onload = function ()
        
             cancelAnimationFrame(advert.caption_1.request);
             //console.log("caption_1 image --  drawn");
-            advert.hideCaption1();
+            //advert.hideCaption1();
         }, 1000/frameRate)
         //only once
         
@@ -1205,23 +1205,23 @@ advert.canvasSupport = function () {
 
 advert.showButton = function () {
 
-var button = document.getElementById("button-cta"); //or use jQuery's $("#photo")
+var button = document.getElementById('button-cta'); //or use jQuery's $("#photo")
 //TweenLite.to(button, 2, css:{top:"20px", backgroundColor:"#FF0000"},);
 TweenLite.to(button, 1, {css:{left:"590px"}});
 //console.log("showing the button");
 
 }
 
-advert.hideCaption1 = function  () {
- var caption1 = document.getElementById("caption_1");
+/*advert.hideCaption1 = function  () {
+ var caption1 = document.getElementById('caption_1');
  TweenLite.to(caption_1, 0, {autoAlpha:0});
 
-}
+} */
 
 advert.showCaption1 = function () {
 
- var caption1 = document.getElementById("caption_1");
- TweenLite.to(caption_1, 1.5, {autoAlpha:1, delay:0});
+ var caption1 = document.getElementById('caption_1');
+ TweenLite.to(document.getElementById('caption_1'), 1.5, {autoAlpha:1, delay:0});
 
 
 }

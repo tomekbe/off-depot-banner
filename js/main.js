@@ -36,17 +36,17 @@ advert.caption_1 = {};
 
 
 // half of the flash framerate;
-var frameRate =16;
+var frameRate =24;
 
 // in milliseconds;
-var slideDisplayTime = 1200;
+var slideDisplayTime = 500;
 
 
 window.onload = function () 
 
 {
 	
-
+   advert.initialiseObjects = function () {
 	//start
 
 	advert.base.ADD_WIDTH = 756; 
@@ -57,6 +57,167 @@ window.onload = function ()
          
     advert.base.canvas.width = advert.base.ADD_WIDTH;
     advert.base.canvas.height = advert.base.ADD_HEIGHT;
+
+
+    /*-------- WHITE SHEET 1-------- */
+    advert.sheet.ADD_WIDTH = 756; 
+    advert.sheet.ADD_HEIGHT = 150;        
+       
+    advert.sheet.canvas = document.getElementById('sheet');
+    advert.sheet.c = advert.sheet.canvas.getContext('2d');
+         
+    advert.sheet.canvas.width = advert.sheet.ADD_WIDTH;
+    advert.sheet.canvas.height = advert.sheet.ADD_HEIGHT;
+
+    advert.sheet.index =0;
+    advert.sheet.frame =0;
+    advert.sheet.xpos = advert.sheet.ypos = 0;
+    advert.sheet.numFrames = 20;
+
+    /*---- slide content 1 ---- */
+    advert.sheet_cont_1.ADD_WIDTH = 756; 
+    advert.sheet_cont_1.ADD_HEIGHT = 150;        
+       
+    advert.sheet_cont_1.canvas = document.getElementById('sheet_cont_1');
+    advert.sheet_cont_1.c = advert.sheet_cont_1.canvas.getContext('2d');
+         
+    advert.sheet_cont_1.canvas.width = advert.sheet_cont_1.ADD_WIDTH;
+    advert.sheet_cont_1.canvas.height = advert.sheet_cont_1.ADD_HEIGHT;
+    
+    advert.sheet_cont_1.index =0;
+    advert.sheet_cont_1.frame =1;
+    advert.sheet_cont_1.xpos = advert.sheet_cont_1.ypos = 0;
+    advert.sheet_cont_1.numFrames = 20;
+
+
+    /*-------- WHITE SHEET 2-------- */
+
+    advert.sheet_2.ADD_WIDTH = 756; 
+    advert.sheet_2.ADD_HEIGHT = 150;        
+       
+    advert.sheet_2.canvas = document.getElementById('sheet_2');
+    advert.sheet_2.c = advert.sheet_2.canvas.getContext('2d');
+         
+    advert.sheet_2.canvas.width = advert.sheet_2.ADD_WIDTH;
+    advert.sheet_2.canvas.height = advert.sheet_2.ADD_HEIGHT;
+    advert.sheet_2.index =0;
+
+    /*---- slide content 2 ---- */
+    advert.sheet_cont_2.ADD_WIDTH = 756; 
+    advert.sheet_cont_2.ADD_HEIGHT = 150;        
+       
+    advert.sheet_cont_2.canvas = document.getElementById('sheet_cont_2');
+    advert.sheet_cont_2.c = advert.sheet_cont_2.canvas.getContext('2d');
+         
+    advert.sheet_cont_2.canvas.width = advert.sheet_cont_2.ADD_WIDTH;
+    advert.sheet_cont_2.canvas.height = advert.sheet_cont_2.ADD_HEIGHT;
+    advert.sheet_cont_2.index =0;
+
+
+    advert.sheet_cont_2.frame =1;
+    advert.sheet_cont_2.xpos = advert.sheet_cont_2.ypos = 0;
+    advert.sheet_cont_2.numFrames = 20;
+
+
+/*-------- WHITE SHEET 3-------- */
+
+    advert.sheet_3.ADD_WIDTH = 756; 
+    advert.sheet_3.ADD_HEIGHT = 150;        
+       
+    advert.sheet_3.canvas = document.getElementById('sheet_3');
+    advert.sheet_3.c = advert.sheet_3.canvas.getContext('2d');
+         
+    advert.sheet_3.canvas.width = advert.sheet_3.ADD_WIDTH;
+    advert.sheet_3.canvas.height = advert.sheet_3.ADD_HEIGHT;
+    advert.sheet_3.index =0;
+
+
+
+ /*---- slide content 3 ---- */
+    advert.sheet_cont_3.ADD_WIDTH = 756; 
+    advert.sheet_cont_3.ADD_HEIGHT = 150;        
+       
+    advert.sheet_cont_3.canvas = document.getElementById('sheet_cont_3');
+    advert.sheet_cont_3.c = advert.sheet_cont_3.canvas.getContext('2d');
+         
+    advert.sheet_cont_3.canvas.width = advert.sheet_cont_3.ADD_WIDTH;
+    advert.sheet_cont_3.canvas.height = advert.sheet_cont_3.ADD_HEIGHT;
+    advert.sheet_cont_3.index =0;
+
+    advert.sheet_cont_3.frame =1;
+    advert.sheet_cont_3.xpos = advert.sheet_cont_3.ypos = 0;
+    advert.sheet_cont_3.numFrames = 22;
+
+
+/*-------- WHITE SHEET 4-------- */
+
+    advert.sheet_4.ADD_WIDTH = 756; 
+    advert.sheet_4.ADD_HEIGHT = 150;        
+       
+    advert.sheet_4.canvas = document.getElementById('sheet_4');
+    advert.sheet_4.c = advert.sheet_4.canvas.getContext('2d');
+         
+    advert.sheet_4.canvas.width = advert.sheet_4.ADD_WIDTH;
+    advert.sheet_4.canvas.height = advert.sheet_4.ADD_HEIGHT;
+    advert.sheet_4.index =0;
+
+ 
+/*---- slide content 4 ---- */
+    advert.sheet_cont_4.ADD_WIDTH = 756; 
+    advert.sheet_cont_4.ADD_HEIGHT = 150;        
+       
+    advert.sheet_cont_4.canvas = document.getElementById('sheet_cont_4');
+    advert.sheet_cont_4.c = advert.sheet_cont_4.canvas.getContext('2d');
+         
+    advert.sheet_cont_4.canvas.width = advert.sheet_cont_4.ADD_WIDTH;
+    advert.sheet_cont_4.canvas.height = advert.sheet_cont_4.ADD_HEIGHT;
+    advert.sheet_cont_4.index =0;
+
+    advert.sheet_cont_4.frame =1;
+    advert.sheet_cont_4.xpos = advert.sheet_cont_4.ypos = 0;
+    advert.sheet_cont_4.numFrames = 20;
+
+
+
+//*** caption_1
+
+    advert.caption_1.ADD_WIDTH = 756; 
+    advert.caption_1.ADD_HEIGHT = 150;        
+       
+    advert.caption_1.canvas = document.getElementById('caption_1');
+    advert.caption_1.c = advert.caption_1.canvas.getContext('2d');
+         
+    advert.caption_1.canvas.width = advert.caption_1.ADD_WIDTH;
+    advert.caption_1.canvas.height = advert.caption_1.ADD_HEIGHT;
+
+
+
+//***toplayer
+
+    advert.toplayer.ADD_WIDTH = 756; 
+    advert.toplayer.ADD_HEIGHT = 150;        
+       
+    advert.toplayer.canvas = document.getElementById('toplayer');
+    advert.toplayer.c = advert.toplayer.canvas.getContext('2d');
+         
+    advert.toplayer.canvas.width = advert.toplayer.ADD_WIDTH;
+    advert.toplayer.canvas.height = advert.toplayer.ADD_HEIGHT;
+
+
+     //*** buttons
+
+    advert.buttons.ADD_WIDTH = 151; 
+    advert.buttons.ADD_HEIGHT = 32;        
+       
+    advert.buttons.canvas = document.getElementById('button-cta');
+    advert.buttons.c = advert.buttons.canvas.getContext('2d');
+         
+    advert.buttons.canvas.width = advert.buttons.ADD_WIDTH;
+    advert.buttons.canvas.height = advert.buttons.ADD_HEIGHT;
+
+
+
+}
 
     // preload all the images;
 
@@ -123,20 +284,7 @@ window.onload = function ()
     }
 
 
-/*-------- WHITE SHEET 1-------- */
-    advert.sheet.ADD_WIDTH = 756; 
-    advert.sheet.ADD_HEIGHT = 150;        
-       
-    advert.sheet.canvas = document.getElementById('sheet');
-    advert.sheet.c = advert.sheet.canvas.getContext('2d');
-         
-    advert.sheet.canvas.width = advert.sheet.ADD_WIDTH;
-    advert.sheet.canvas.height = advert.sheet.ADD_HEIGHT;
 
-    advert.sheet.index =0;
-    advert.sheet.frame =0;
-    advert.sheet.xpos = advert.sheet.ypos = 0;
-    advert.sheet.numFrames = 20;
 
     // preload all the images;
 
@@ -309,20 +457,7 @@ window.onload = function ()
     }
 
 
-    /*---- slide content 1 ---- */
-    advert.sheet_cont_1.ADD_WIDTH = 756; 
-    advert.sheet_cont_1.ADD_HEIGHT = 150;        
-       
-    advert.sheet_cont_1.canvas = document.getElementById('sheet_cont_1');
-    advert.sheet_cont_1.c = advert.sheet_cont_1.canvas.getContext('2d');
-         
-    advert.sheet_cont_1.canvas.width = advert.sheet_cont_1.ADD_WIDTH;
-    advert.sheet_cont_1.canvas.height = advert.sheet_cont_1.ADD_HEIGHT;
-    
-    advert.sheet_cont_1.index =0;
-    advert.sheet_cont_1.frame =1;
-    advert.sheet_cont_1.xpos = advert.sheet_cont_1.ypos = 0;
-    advert.sheet_cont_1.numFrames = 20;
+
 
     // preload all the images;
 
@@ -455,37 +590,6 @@ window.onload = function ()
     }
 
 
-/*-------- WHITE SHEET 2-------- */
-
-    advert.sheet_2.ADD_WIDTH = 756; 
-    advert.sheet_2.ADD_HEIGHT = 150;        
-       
-    advert.sheet_2.canvas = document.getElementById('sheet_2');
-    advert.sheet_2.c = advert.sheet_2.canvas.getContext('2d');
-         
-    advert.sheet_2.canvas.width = advert.sheet_2.ADD_WIDTH;
-    advert.sheet_2.canvas.height = advert.sheet_2.ADD_HEIGHT;
-    advert.sheet_2.index =0;
-
-
-
-
-
-    /*---- slide content 2 ---- */
-    advert.sheet_cont_2.ADD_WIDTH = 756; 
-    advert.sheet_cont_2.ADD_HEIGHT = 150;        
-       
-    advert.sheet_cont_2.canvas = document.getElementById('sheet_cont_2');
-    advert.sheet_cont_2.c = advert.sheet_cont_2.canvas.getContext('2d');
-         
-    advert.sheet_cont_2.canvas.width = advert.sheet_cont_2.ADD_WIDTH;
-    advert.sheet_cont_2.canvas.height = advert.sheet_cont_2.ADD_HEIGHT;
-    advert.sheet_cont_2.index =0;
-
-
-    advert.sheet_cont_2.frame =1;
-    advert.sheet_cont_2.xpos = advert.sheet_cont_2.ypos = 0;
-    advert.sheet_cont_2.numFrames = 20;
 
     // preload all the images;
 
@@ -493,9 +597,9 @@ window.onload = function ()
 
         advert.sheet_cont_2.loaded = 0;
         advert.sheet_cont_2.ready = false;
-        advert.sheet_cont_2.totalToLoad = 3;
+        advert.sheet_cont_2.totalToLoad = 2;
         advert.sheet_cont_2.path = 'img/sheet_cont_2/';
-        advert.sheet_cont_2.images = ['sheet_cont_2_A.png','sheet_cont_2_B.png', 'sheet_cont_2_C.png'];
+        advert.sheet_cont_2.images = ['sheet_cont_2_A.png','sheet_cont_2_B.png'];
         advert.sheet_cont_2.resources = new Array();
 
 
@@ -536,11 +640,11 @@ window.onload = function ()
             decodeCanvas.height = advert.sheet_cont_2.resources[1].height;
             dectodeCtx.drawImage(advert.sheet_cont_2.resources[1], 0, 0);
 
-            var  decodeCanvas2 = document.createElement('canvas');
+           /* var  decodeCanvas2 = document.createElement('canvas');
             var dectodeCtx2 = decodeCanvas2.getContext('2d');
             decodeCanvas2.width = advert.sheet_cont_2.resources[2].width;
             decodeCanvas2.height = advert.sheet_cont_2.resources[2].height;
-            dectodeCtx2.drawImage(advert.sheet_cont_2.resources[2], 0, 0);
+            dectodeCtx2.drawImage(advert.sheet_cont_2.resources[2], 0, 0); */
         }
 
     }
@@ -624,34 +728,7 @@ window.onload = function ()
     }
 
 
-/*-------- WHITE SHEET 3-------- */
 
-    advert.sheet_3.ADD_WIDTH = 756; 
-    advert.sheet_3.ADD_HEIGHT = 150;        
-       
-    advert.sheet_3.canvas = document.getElementById('sheet_3');
-    advert.sheet_3.c = advert.sheet_3.canvas.getContext('2d');
-         
-    advert.sheet_3.canvas.width = advert.sheet_3.ADD_WIDTH;
-    advert.sheet_3.canvas.height = advert.sheet_3.ADD_HEIGHT;
-    advert.sheet_3.index =0;
-
-
-
- /*---- slide content 3 ---- */
-    advert.sheet_cont_3.ADD_WIDTH = 756; 
-    advert.sheet_cont_3.ADD_HEIGHT = 150;        
-       
-    advert.sheet_cont_3.canvas = document.getElementById('sheet_cont_3');
-    advert.sheet_cont_3.c = advert.sheet_cont_3.canvas.getContext('2d');
-         
-    advert.sheet_cont_3.canvas.width = advert.sheet_cont_3.ADD_WIDTH;
-    advert.sheet_cont_3.canvas.height = advert.sheet_cont_3.ADD_HEIGHT;
-    advert.sheet_cont_3.index =0;
-
-    advert.sheet_cont_3.frame =1;
-    advert.sheet_cont_3.xpos = advert.sheet_cont_3.ypos = 0;
-    advert.sheet_cont_3.numFrames = 22;
     // preload all the images;
 
     advert.sheet_cont_3.preload = function () {
@@ -720,7 +797,7 @@ window.onload = function ()
 
                   // makes a delay of 2 seconds
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                 advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, slideDisplayTime);
+                 advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, slideDisplayTime+1000);
                     
             }
 
@@ -778,35 +855,7 @@ window.onload = function ()
 
     }
 
-/*-------- WHITE SHEET 4-------- */
 
-    advert.sheet_4.ADD_WIDTH = 756; 
-    advert.sheet_4.ADD_HEIGHT = 150;        
-       
-    advert.sheet_4.canvas = document.getElementById('sheet_4');
-    advert.sheet_4.c = advert.sheet_4.canvas.getContext('2d');
-         
-    advert.sheet_4.canvas.width = advert.sheet_4.ADD_WIDTH;
-    advert.sheet_4.canvas.height = advert.sheet_4.ADD_HEIGHT;
-    advert.sheet_4.index =0;
-
- 
-
-
-/*---- slide content 4 ---- */
-    advert.sheet_cont_4.ADD_WIDTH = 756; 
-    advert.sheet_cont_4.ADD_HEIGHT = 150;        
-       
-    advert.sheet_cont_4.canvas = document.getElementById('sheet_cont_4');
-    advert.sheet_cont_4.c = advert.sheet_cont_4.canvas.getContext('2d');
-         
-    advert.sheet_cont_4.canvas.width = advert.sheet_cont_4.ADD_WIDTH;
-    advert.sheet_cont_4.canvas.height = advert.sheet_cont_4.ADD_HEIGHT;
-    advert.sheet_cont_4.index =0;
-
-    advert.sheet_cont_4.frame =1;
-    advert.sheet_cont_4.xpos = advert.sheet_cont_4.ypos = 0;
-    advert.sheet_cont_4.numFrames = 20;
 
     // preload all the images;
 
@@ -943,16 +992,7 @@ window.onload = function ()
 
 
 
-    //*** buttons
-
-    advert.buttons.ADD_WIDTH = 151; 
-    advert.buttons.ADD_HEIGHT = 32;        
-       
-    advert.buttons.canvas = document.getElementById('button-cta');
-    advert.buttons.c = advert.buttons.canvas.getContext('2d');
-         
-    advert.buttons.canvas.width = advert.buttons.ADD_WIDTH;
-    advert.buttons.canvas.height = advert.buttons.ADD_HEIGHT;
+   
 
     // preload all the images;
 
@@ -1021,16 +1061,7 @@ window.onload = function ()
     }
 
 
-//*** caption_1
 
-    advert.caption_1.ADD_WIDTH = 756; 
-    advert.caption_1.ADD_HEIGHT = 150;        
-       
-    advert.caption_1.canvas = document.getElementById('caption_1');
-    advert.caption_1.c = advert.caption_1.canvas.getContext('2d');
-         
-    advert.caption_1.canvas.width = advert.caption_1.ADD_WIDTH;
-    advert.caption_1.canvas.height = advert.caption_1.ADD_HEIGHT;
 
     advert.caption_1.preload = function () {
 
@@ -1098,16 +1129,6 @@ window.onload = function ()
 
 
 
-//***toplayer
-
-    advert.toplayer.ADD_WIDTH = 756; 
-    advert.toplayer.ADD_HEIGHT = 150;        
-       
-    advert.toplayer.canvas = document.getElementById('toplayer');
-    advert.toplayer.c = advert.toplayer.canvas.getContext('2d');
-         
-    advert.toplayer.canvas.width = advert.toplayer.ADD_WIDTH;
-    advert.toplayer.canvas.height = advert.toplayer.ADD_HEIGHT;
 
     advert.toplayer.preload = function () {
 
@@ -1177,6 +1198,10 @@ window.onload = function ()
 //**************************************//
 // general functions in advert namespace
 
+advert.canvasSupport = function () {
+    
+    return !!document.createElement('canvas').getContext;
+}
 
 advert.showButton = function () {
 
@@ -1254,6 +1279,7 @@ advert.playBanner = function () {
 // ******** init ***//
 
 advert.init = function () {
+    advert.initialiseObjects();
           //preload bg image;
     advert.base.preload();
     //preload white sheet animation;
@@ -1274,10 +1300,23 @@ advert.init = function () {
 }
 
 
+// check first if the canvas is supported at all
+
+if(advert.canvasSupport()===true) {
+
+    
+    //plays the ad only if the canvas is supported
+    advert.init();
+} else if(advert.canvasSupport()===false) {
 
 
+    //canvas is not supported and fallback image is injected into canvas
+    document.getElementById('add-wrapper').innerHTML="<img src=\"img/fallback/nohtml5.jpg\" width=\"756\" height=\"150\" alt=\"html5 fallback\" />";
 
-advert.init();
+    
+}
+
+
 
 
   

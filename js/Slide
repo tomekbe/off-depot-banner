@@ -1,0 +1,8 @@
+function Slide() {
+	
+}
+
+
+Slide.prototype.construct   =  function () {
+	
+}

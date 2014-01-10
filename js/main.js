@@ -384,77 +384,7 @@ window.onload = function ()
     }
 
 
-    advert.drawSlide  = function (ob,nextObj, whiteSheet) {
 
-       obj.ffp =  setTimeout(function () {
-
-            
-        
-           
-            if(obj.index>=obj.totalToLoad) {
-
-             
-                  cancelAnimationFrame(obj.request);
-
-                  // makes a delay of 2 seconds
-                  advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                  obj.timer = setTimeout(function() {nextObj.drawFrame()}, 2000);
-                    
-            }
-
-            if(obj.index<=obj.totalToLoad-1) {
-                //perform
-                advert.sheet.animateWhiteSheet(whiteSheet);
-                obj.request  = requestAnimationFrame(obj.drawFrame, obj.canvas);
-                obj.c.clearRect(0,0, obj.ADD_WIDTH, obj.ADD_HEIGHT);
-                obj.c.drawImage(obj.resources[obj.index],obj.xpos,obj.ypos,756,150,0,0,756,150);
-
-                       //>     Sprite Sheet iteration
-                    
-                    //each time around we add the frame size to our xpos, moving along the source image
-                    obj.xpos += 756;
-                    //increase the frame so we know which frame of our animation we are currently on
-                    obj.frame += 1;
-                    //if our index is higher than our total number of frames, we're at the end and better start over
-                    if (obj.frame >= obj.numFrames+1) {
-                       // console.log("first image finished");
-                        obj.xpos =0;
-                        obj.ypos =0;
-                        obj.frame=1;  
-                        
-                        //if(advert.sheet_cont_1.index<advert.sheet_cont_1.totalToLoad-1) {}
-                        obj.index++;  
-                        
-                        
-
-                    //if we've gotten to the limit of our source image's width, we need to move down one row of frames              
-                    } else if (obj.xpos + 756 > obj.resources[obj.index].width){
-                       //  console.log("moving down");
-
-                       obj.xpos =0;
-                       obj.ypos += 150;
-                    }
-
-                //console.log(advert.sheet_cont_1.index,advert.sheet_cont_1.totalToLoad, advert.sheet_cont_1.frame, "iteration");
-
-            //> The end of spritesheet iteration
-            }
-         
-           
-         
-
-    
-
-
-            
-
-          
-        }, 1000/frameRate)
-    
-
-
-
-    }
 
 
 

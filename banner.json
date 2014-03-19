@@ -1,5 +1,7 @@
 {
   "language": "English",
-  "captions_sprite": "captions_LOREM.png",
+  "lg_code":"EN",
+  "captions_sprite": "captions_EN.png",
+  "cta_sprite":"cta_EN.png",
   "slide_duration": "3"
 }

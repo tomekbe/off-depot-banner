@@ -31,8 +31,11 @@ advert.buttons = {};
 
 advert.toplayer = {};
 
+
+// JSON set values;
 advert.caption_1 = {};
 advert.captions_loc ="";
+advert.cta_loc="";
 advert.slideDisplayDuration =1;
 
 // half of the flash framerate;
@@ -52,6 +55,7 @@ window.onload = function ()
          var items = [];
          advert.captions_loc = data.captions_sprite;
          advert.slideDisplayDuration = data.slide_duration;
+         advert.cta_loc = data.cta_sprite;
           console.log(advert.captions_loc)
           f();
     });
@@ -1005,7 +1009,7 @@ window.onload = function ()
         advert.buttons.totalToLoad = 1; 
         advert.buttons.ready = false;
         advert.buttons.path = 'img/buttons/';
-        advert.buttons.images = ['cta.png'];
+        advert.buttons.images = [advert.cta_loc];
         advert.buttons.resources = new Array();
 
 

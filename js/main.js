@@ -1055,7 +1055,7 @@ window.onload = function ()
         advert.caption_1.totalToLoad = 1; 
         advert.caption_1.ready = false;
         advert.caption_1.path = 'img/captions/';
-        advert.caption_1.images = ['caption_1.png'];
+        advert.caption_1.images = ['captions_LOREM.png'];
         advert.caption_1.resources = new Array();
 
 
@@ -1207,7 +1207,7 @@ TweenLite.to(button, 1, {css:{left:"590px"}});
 advert.showCaption1 = function (f) {
 
  var caption1 = document.getElementById('caption_1');
- TweenLite.to(document.getElementById('caption_1'), 1.5, {autoAlpha:1, delay:0, onComplete:f});
+ TweenLite.to(document.getElementById('caption_1'), 1, {autoAlpha:1, delay:0, onComplete:f});
 
 
 
@@ -1216,7 +1216,7 @@ advert.showCaption1 = function (f) {
 advert.hideCaption1 = function (f) {
 
  var caption1 = document.getElementById('caption_1');
- TweenLite.to(document.getElementById('caption_1'), 1.5, {autoAlpha:0, delay:1, onComplete:f});
+ TweenLite.to(document.getElementById('caption_1'), 1, {autoAlpha:0, delay:2, onComplete:f});
 
 
 

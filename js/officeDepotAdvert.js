@@ -13,6 +13,8 @@ ad+="<canvas id=\"sheet_cont_4\"> </canvas>";
 ad+="<canvas id=\"caption_1\" style=\"visibility:hidden;opacity:0\"> </canvas>";
 ad+="<canvas id=\"button-cta\"> </canvas>";
 ad+="<canvas id=\"toplayer\"> </canvas>";
+ad += "<"+"script type=\'text/javascript\' src=\"js/jquery-1.8.2.min.js\">\n";
+ad += "<"+"/script>\n";
 ad += "<"+"script type=\'text/javascript\' src=\"js/CSSPlugin.min.js\">\n";
 ad += "<"+"/script>\n";
 ad += "<"+"script type=\'text/javascript\' src=\"js/TweenLite.min.js\">\n";

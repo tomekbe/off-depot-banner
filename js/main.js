@@ -39,7 +39,7 @@ advert.caption_1 = {};
 var frameRate =24;
 
 // in milliseconds;
-var slideDisplayTime = 500;
+var slideDisplayTime = 50;
 
 
 window.onload = function () 
@@ -467,7 +467,21 @@ window.onload = function ()
 
                   // makes a delay of 2 seconds
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                  advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_cont_2.drawFrame()}, slideDisplayTime);
+                  advert.sheet_cont_1.timer = setTimeout(
+                        function() { 
+                            //advert.sheet_cont_2.drawFrame()
+                             advert.caption_1.drawFrame(0);
+                             advert.showCaption1(function() { 
+                                advert.hideCaption1(
+                                                    function() {console.log("the end of hiding the caption")
+                                                         advert.caption_1.c.clearRect(0,0, advert.caption_1.ADD_WIDTH, advert.caption_1.ADD_HEIGHT);
+                                                        advert.sheet_cont_2.drawFrame()
+                                                    } 
+                                                   ) 
+                             });
+
+
+                  }, slideDisplayTime);
                     
             }
 
@@ -597,7 +611,23 @@ window.onload = function ()
 
                   // makes a delay of 2 seconds
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                  advert.sheet_cont_2.timer = setTimeout(function() {advert.sheet_cont_3.drawFrame()}, slideDisplayTime);
+                  //advert.sheet_cont_2.timer = setTimeout(function() {advert.sheet_cont_3.drawFrame()}, slideDisplayTime);
+
+                        advert.sheet_cont_2.timer = setTimeout(
+                        function() { 
+                            //advert.sheet_cont_2.drawFrame()
+                             advert.caption_1.drawFrame(1);
+                             advert.showCaption1(function() { 
+                                advert.hideCaption1(
+                                                    function() {console.log("the end of hiding the caption")
+                                                        advert.caption_1.c.clearRect(0,0, advert.caption_1.ADD_WIDTH, advert.caption_1.ADD_HEIGHT);
+                                                        advert.sheet_cont_3.drawFrame()
+                                                    } 
+                                                   ) 
+                             });
+
+
+                  }, slideDisplayTime);
                     
             }
 
@@ -727,7 +757,22 @@ window.onload = function ()
 
                   // makes a delay of 2 seconds
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
-                 advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, slideDisplayTime+1000);
+                  //advert.sheet_cont_3.timer = setTimeout(function() {advert.sheet_cont_4.drawFrame()}, slideDisplayTime+1000);
+                  advert.sheet_cont_3.timer = setTimeout(
+                        function() { 
+                            //advert.sheet_cont_2.drawFrame()
+                             advert.caption_1.drawFrame(2);
+                             advert.showCaption1(function() { 
+                                advert.hideCaption1(
+                                                    function() {console.log("the end of hiding the caption")
+                                                    advert.caption_1.c.clearRect(0,0, advert.caption_1.ADD_WIDTH, advert.caption_1.ADD_HEIGHT);
+                                                        advert.sheet_cont_4.drawFrame()
+                                                    } 
+                                                   ) 
+                             });
+
+
+                  }, slideDisplayTime);
                     
             }
 
@@ -860,7 +905,18 @@ window.onload = function ()
                   advert.sheet.index=0;advert.sheet.frame=0; advert.sheet.xpos=0; advert.sheet.ypos =0;
                  // advert.sheet_cont_1.timer = setTimeout(function() {advert.sheet_cont_2.drawFrame()}, 2000);
                  
-                 advert.showButton(), advert.showCaption1();   
+                 advert.showButton(), 
+
+                        advert.sheet_cont_4.timer = setTimeout(
+                        function() { 
+                            //advert.sheet_cont_2.drawFrame()
+                             advert.caption_1.drawFrame(3);
+                             advert.showCaption1(function() { 
+                               console.log("---")
+                             });
+
+
+                  }, slideDisplayTime);  
             }
 
             if(advert.sheet_cont_4.index<=advert.sheet_cont_4.totalToLoad-1) {
@@ -1037,13 +1093,13 @@ window.onload = function ()
 
         //draw this frame
 
-    advert.caption_1.drawFrame  = function () {
+    advert.caption_1.drawFrame  = function (n) {
 
         advert.caption_1.ffp =  setTimeout(function () {
-
+           
             advert.caption_1.request  = requestAnimationFrame(advert.caption_1.drawFrame, advert.caption_1.canvas);
             advert.caption_1.c.clearRect(0,0, advert.caption_1.ADD_WIDTH, advert.caption_1.ADD_HEIGHT);
-            advert.caption_1.c.drawImage(advert.caption_1.resources[0],0,0, 756,150,0,0,756,150)
+            advert.caption_1.c.drawImage(advert.caption_1.resources[0],0,n*150, 756,150,0,0,756,150)
        
             cancelAnimationFrame(advert.caption_1.request);
             //console.log("caption_1 image --  drawn");
@@ -1148,10 +1204,20 @@ TweenLite.to(button, 1, {css:{left:"590px"}});
 
 } */
 
-advert.showCaption1 = function () {
+advert.showCaption1 = function (f) {
 
  var caption1 = document.getElementById('caption_1');
- TweenLite.to(document.getElementById('caption_1'), 1.5, {autoAlpha:1, delay:0});
+ TweenLite.to(document.getElementById('caption_1'), 1.5, {autoAlpha:1, delay:0, onComplete:f});
+
+
+
+}
+
+advert.hideCaption1 = function (f) {
+
+ var caption1 = document.getElementById('caption_1');
+ TweenLite.to(document.getElementById('caption_1'), 1.5, {autoAlpha:0, delay:1, onComplete:f});
+
 
 
 }
@@ -1201,7 +1267,8 @@ advert.playBanner = function () {
     advert.buttons.drawFrame();
 
     advert.toplayer.drawFrame();
-    advert.caption_1.drawFrame();
+    // starts withe the first frame 
+   
 
 
 }

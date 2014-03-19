@@ -32,11 +32,12 @@ advert.buttons = {};
 advert.toplayer = {};
 
 
-// JSON set values;
+
 advert.caption_1 = {};
-advert.captions_loc ="";
-advert.cta_loc="";
-advert.slideDisplayDuration =1;
+
+advert.captions_loc =userDefined.captions_loc;
+advert.cta_loc=userDefined.cta_loc;
+advert.slideDisplayDuration =userDefined.slide_duration;
 
 // half of the flash framerate;
 var frameRate =24;
@@ -48,20 +49,20 @@ var slideDisplayTime = 50;
 window.onload = function () 
 
 {
-	
 
-   advert.initialiseJSON = function (f) {
+
+   /*advert.initialiseJSON = function (f) {
     $.getJSON( "banner.json", function( data ) {
          var items = [];
          advert.captions_loc = data.captions_sprite;
          advert.slideDisplayDuration = data.slide_duration;
          advert.cta_loc = data.cta_sprite;
-          console.log(advert.captions_loc)
+        
           f();
     });
 
     
-   }
+   } */
 
    advert.initialiseObjects = function () {
     // call JSON
@@ -1301,7 +1302,7 @@ advert.playBanner = function () {
 
 advert.init = function () {
 
-    advert.initialiseJSON(function() {
+   // advert.initialiseJSON(function() {})
 
            advert.initialiseObjects();
           //preload bg image;
@@ -1318,7 +1319,7 @@ advert.init = function () {
     advert.sheet_cont_3.preload();
     advert.sheet_cont_2.preload();
     advert.sheet_cont_1.preload();
-    })
+    
  
 
 

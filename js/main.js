@@ -66,10 +66,11 @@ window.onload = function ()
    //console.log(document.getElementById("lang").getAttribute("lang"));
  var lg = document.getElementById("lang").getAttribute("lang");
  //console.log(lg, userDefiner[lg].captions_loc);
-advert.captions_loc =userDefined[lg].captions_loc;
-advert.cta_loc=userDefined[lg].cta_loc;
-advert.fallback_loc = userDefined[lg].fallback_loc
-advert.slideDisplayDuration =userDefined[lg].slide_duration;
+    
+    advert.captions_loc =userDefined[lg].captions_loc;
+    advert.cta_loc=userDefined[lg].cta_loc;
+    advert.fallback_loc = userDefined[lg].fallback_loc
+    advert.slideDisplayDuration =userDefined.slide_duration;
 
    advert.initialiseObjects = function () {
     // call JSON

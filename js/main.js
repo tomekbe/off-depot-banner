@@ -35,9 +35,8 @@ advert.toplayer = {};
 
 advert.caption_1 = {};
 
-advert.captions_loc =userDefined.captions_loc;
-advert.cta_loc=userDefined.cta_loc;
-advert.slideDisplayDuration =userDefined.slide_duration;
+
+
 
 // half of the flash framerate;
 var frameRate =24;
@@ -64,10 +63,18 @@ window.onload = function ()
     
    } */
 
+   //console.log(document.getElementById("lang").getAttribute("lang"));
+ var lg = document.getElementById("lang").getAttribute("lang");
+ //console.log(lg, userDefiner[lg].captions_loc);
+advert.captions_loc =userDefined[lg].captions_loc;
+advert.cta_loc=userDefined[lg].cta_loc;
+advert.fallback_loc = userDefined[lg].fallback_loc
+advert.slideDisplayDuration =userDefined[lg].slide_duration;
+
    advert.initialiseObjects = function () {
     // call JSON
 
-
+    
 
 
 	//start
@@ -496,7 +503,7 @@ window.onload = function ()
                              advert.caption_1.drawFrame(0);
                              advert.showCaption1(function() { 
                                 advert.hideCaption1(
-                                                    function() {console.log("the end of hiding the caption")
+                                                    function() {// the end of hiding the caption
                                                          advert.caption_1.c.clearRect(0,0, advert.caption_1.ADD_WIDTH, advert.caption_1.ADD_HEIGHT);
                                                         advert.sheet_cont_2.drawFrame()
                                                     } 
@@ -642,7 +649,7 @@ window.onload = function ()
                              advert.caption_1.drawFrame(1);
                              advert.showCaption1(function() { 
                                 advert.hideCaption1(
-                                                    function() {console.log("the end of hiding the caption")
+                                                    function() {// the end of hiding a caption
                                                         advert.caption_1.c.clearRect(0,0, advert.caption_1.ADD_WIDTH, advert.caption_1.ADD_HEIGHT);
                                                         advert.sheet_cont_3.drawFrame()
                                                     } 
@@ -1078,7 +1085,7 @@ window.onload = function ()
         advert.caption_1.totalToLoad = 1; 
         advert.caption_1.ready = false;
         advert.caption_1.path = 'img/captions/';
-        console.log(advert.captions_loc +"----");
+     
         advert.caption_1.images = [advert.captions_loc];
         advert.caption_1.resources = new Array();
 
@@ -1335,13 +1342,15 @@ if(advert.canvasSupport()===true) {
     
     //plays the ad only if the canvas is supported
     advert.init();
+    
+
 } else if(advert.canvasSupport()===false) {
 
 
     //canvas is not supported and fallback image is injected into canvas
-    document.getElementById('add-wrapper').innerHTML="<img src=\"img/fallback/nohtml5.jpg\" width=\"756\" height=\"150\" alt=\"html5 fallback\" />";
+    //document.getElementById('add-wrapper').innerHTML="<img src=\"img/fallback/nohtml5.jpg\" width=\"756\" height=\"150\" alt=\"html5 fallback\" />";
 
-    
+    document.getElementById('add-wrapper').innerHTML="<img src=\"img/fallback/"+ advert.fallback_loc+ "\" width=\"756\" height=\"150\" alt=\"html5 fallback\" />";
 }
 
 

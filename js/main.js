@@ -31,9 +31,13 @@ advert.buttons = {};
 
 advert.toplayer = {};
 
-advert.caption_1 = {};
- 
 
+
+advert.caption_1 = {};
+
+advert.captions_loc =userDefined.captions_loc;
+advert.cta_loc=userDefined.cta_loc;
+advert.slideDisplayDuration =userDefined.slide_duration;
 
 // half of the flash framerate;
 var frameRate =24;
@@ -45,8 +49,27 @@ var slideDisplayTime = 50;
 window.onload = function () 
 
 {
-	
+
+
+   /*advert.initialiseJSON = function (f) {
+    $.getJSON( "banner.json", function( data ) {
+         var items = [];
+         advert.captions_loc = data.captions_sprite;
+         advert.slideDisplayDuration = data.slide_duration;
+         advert.cta_loc = data.cta_sprite;
+        
+          f();
+    });
+
+    
+   } */
+
    advert.initialiseObjects = function () {
+    // call JSON
+
+
+
+
 	//start
 
 	advert.base.ADD_WIDTH = 756; 
@@ -987,7 +1010,7 @@ window.onload = function ()
         advert.buttons.totalToLoad = 1; 
         advert.buttons.ready = false;
         advert.buttons.path = 'img/buttons/';
-        advert.buttons.images = ['cta.png'];
+        advert.buttons.images = [advert.cta_loc];
         advert.buttons.resources = new Array();
 
 
@@ -1055,7 +1078,8 @@ window.onload = function ()
         advert.caption_1.totalToLoad = 1; 
         advert.caption_1.ready = false;
         advert.caption_1.path = 'img/captions/';
-        advert.caption_1.images = ['captions_LOREM.png'];
+        console.log(advert.captions_loc +"----");
+        advert.caption_1.images = [advert.captions_loc];
         advert.caption_1.resources = new Array();
 
 
@@ -1075,6 +1099,7 @@ window.onload = function ()
         }
 
     }
+
 
 
     // progress check
@@ -1131,6 +1156,7 @@ window.onload = function ()
 
             var ni = new Image();
             ni.src = advert.toplayer.path + advert.toplayer.images[image];
+
             advert.toplayer.resources.push(ni);
 
             advert.toplayer.resources[image].onload = function() {
@@ -1216,7 +1242,7 @@ advert.showCaption1 = function (f) {
 advert.hideCaption1 = function (f) {
 
  var caption1 = document.getElementById('caption_1');
- TweenLite.to(document.getElementById('caption_1'), 1, {autoAlpha:0, delay:2, onComplete:f});
+ TweenLite.to(document.getElementById('caption_1'), 1, {autoAlpha:0, delay:advert.slideDisplayDuration, onComplete:f});
 
 
 
@@ -1276,7 +1302,10 @@ advert.playBanner = function () {
 // ******** init ***//
 
 advert.init = function () {
-    advert.initialiseObjects();
+
+   // advert.initialiseJSON(function() {})
+
+           advert.initialiseObjects();
           //preload bg image;
     advert.base.preload();
     //preload white sheet animation;
@@ -1291,6 +1320,8 @@ advert.init = function () {
     advert.sheet_cont_3.preload();
     advert.sheet_cont_2.preload();
     advert.sheet_cont_1.preload();
+    
+ 
 
 
         //preload the content

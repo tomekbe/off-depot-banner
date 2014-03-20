@@ -21,6 +21,8 @@ ad += "<"+"script type=\'text/javascript\' src=\"js/TweenLite.min.js\">\n";
 ad += "<"+"/script>\n";
 ad += "<"+"script type=\'text/javascript\' src=\"js/utils.js\">\n";
 ad += "<"+"/script>\n";
+ad += "<"+"script type=\'text/javascript\' src=\"js/custom.js\">\n";
+ad += "<"+"/script>\n";
 ad += "<"+"script type=\'text/javascript\' src=\"js/main.js\">\n";
 ad += "<"+"/script>\n";
 ad+="</div>";
